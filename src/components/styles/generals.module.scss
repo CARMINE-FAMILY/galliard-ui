@@ -1,0 +1,55 @@
+// #region FONTS IMPORT
+
+@font-face {
+  font-family: 'OpenSansRegular';
+  src: url('../../assets/fonts/Open_Sans/static/OpenSans-Regular.ttf') format('truetype');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'OpenSansBold';
+  src: url('../../assets/fonts/Open_Sans/static/OpenSans-Bold.ttf') format('truetype');
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'OpenSansLight';
+  src: url('../../assets/fonts/Open_Sans/static/OpenSans-Light.ttf') format('truetype');
+  font-weight: lighter;
+}
+
+@font-face {
+  font-family: 'OpenSansSemiBold';
+  src: url('../../assets/fonts/Open_Sans/static/OpenSans-SemiBold.ttf') format('truetype');
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'OpenSansBolder';
+  src: url('../assets/fonts/Open_Sans/static/OpenSans-ExtraBold.ttf') format('truetype');
+  font-weight: bolder;
+}
+
+@font-face {
+  font-family: 'MetalMania';
+  src: url('../assets/fonts/Metal_Mania/MetalMania-Regular.ttf') format('truetype');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'BebasNeue';
+  src: url('../assets/fonts/Bebas_Neue/BebasNeue-Regular.ttf') format('truetype');
+  font-weight: normal;
+}
+
+// #endregion
+
+*{
+    margin: 0;
+    padding: 0;
+    font-size: 10px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    font-family: OpenSansRegular, Arial, Helvetica, sans-serif;
+}

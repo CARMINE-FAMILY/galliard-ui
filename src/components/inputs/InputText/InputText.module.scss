@@ -1,0 +1,5 @@
+@use '@/components/styles/generalInputs.module.scss' as *;
+
+.container {
+    @include input-general-styles;
+}
