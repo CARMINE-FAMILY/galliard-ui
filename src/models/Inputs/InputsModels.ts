@@ -39,8 +39,8 @@ export interface InputProps {
     customIconLClass?: string;
 
     // Iconos
-    seeInputLeft?: boolean;
-    seeInputRight?: boolean;
+    seeIconLeft?: boolean;
+    seeIconRight?: boolean;
     iconColorL?: string;
     iconColorR?: string;
     iconSizeL?: number;

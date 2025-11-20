@@ -1,7 +1,7 @@
 import { Icon } from "@iconify/react";
 import type { InputProps } from "../../../models/Inputs/InputsModels";
 import { useState, forwardRef, useCallback, useMemo, useId } from "react";
-import styles from "./InputText.module.scss";
+import styles from "./InputTextGal.module.scss";
 import { getRoundedValue } from "../utils/Functions";
 
 export const InputTextGal = forwardRef<HTMLInputElement, InputProps>(function InputText(
@@ -28,8 +28,8 @@ export const InputTextGal = forwardRef<HTMLInputElement, InputProps>(function In
         customIconRClass,
         customIconLClass,
 
-        seeInputLeft = true,
-        seeInputRight,
+        seeIconLeft = true,
+        seeIconRight,
         iconColorL,
         iconColorR,
         iconSizeL,
@@ -43,7 +43,6 @@ export const InputTextGal = forwardRef<HTMLInputElement, InputProps>(function In
     },
     ref
 ) {
-    const idDiv = useId();
 
     const getRounded: number = useMemo(() => {
         return getRoundedValue(rounded ?? "full");
@@ -82,7 +81,7 @@ export const InputTextGal = forwardRef<HTMLInputElement, InputProps>(function In
                         backgroundColor: bgColor,
                     }}
                 >
-                    {!customIconLeft ? seeInputLeft &&
+                    {!customIconLeft ? seeIconLeft &&
                         <Icon
                             icon={iconLeft ?? "mi:user"}
                             className={`${styles.icon} ${customIconLClass}`}
@@ -106,7 +105,7 @@ export const InputTextGal = forwardRef<HTMLInputElement, InputProps>(function In
                         {...args}
                     />
 
-                    {!customIconRight ? seeInputRight &&
+                    {!customIconRight ? seeIconRight &&
                         <Icon
                             icon={iconRight ?? "mi:user"}
                             className={`${styles.icon} ${customIconRClass}`}

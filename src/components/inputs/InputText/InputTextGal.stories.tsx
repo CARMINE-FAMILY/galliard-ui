@@ -1,8 +1,6 @@
 // InputText.stories.tsx
 import type { Meta, StoryObj } from '@storybook/react';
-import { InputTextGal } from './InputTextGal'; // Asumiendo que están en la misma carpeta
-import { background } from 'storybook/theming';
-import { Icon } from '@iconify/react';
+import { InputTextGal } from './InputTextGal';
 
 // 1. CONFIGURACIÓN GENERAL (Meta)
 const meta = {
@@ -47,4 +45,10 @@ export const ConPlaceholder: Story = {
     typeInput: 'number',
     args: {}
   },
+  argTypes: {
+    bgColor: {control: 'color'},
+    iconColorR: {control: 'color'},
+    iconColorL: {control: 'color'},
+    textColor: {control: 'color'}
+  }
 };

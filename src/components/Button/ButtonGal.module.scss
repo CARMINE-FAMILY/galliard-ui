@@ -1,0 +1,95 @@
+@use "@/components/styles/generals.module.scss" as *;
+
+$themes: (
+    ThemeDark: (#000000, #464646, #ffffff),
+    ThemeGreen: (#1fd545, #17ed4b, #ffffff),
+    ThemeBlue: (#1d4ed8, #2649ab, #ffffff),
+    ThemeRed: (#ff0000, #e60000, #ffffff),
+    ThemePurple: (#9d50dc, #6b21a8, #ffffff),
+    ThemeGray: (#374151, #1f2937, #ffffff),
+    ThemeLight: (#ffffff, #e1e1e1, #000000),
+    ThemeYellow: (#f59e0b, #d97706, #000000)
+);
+
+@each $themeBtn, $colorList in $themes{
+    $bgColor: nth($colorList, 1);
+    $hoverColor: nth($colorList, 2);
+    $txtAndIconColor: nth($colorList, 3);
+
+    .btn#{$themeBtn} {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: $bgColor;
+        padding: 5px 10px;
+        gap: 5px;
+        overflow: hidden;
+        cursor: pointer;
+        transition: background 0.3s ease;
+        border: none;
+        outline: none;
+
+        &:hover {
+            background: $hoverColor;
+        }
+
+        p {
+            font-size: 1.4rem;
+            font-family: OpenSansSemiBold;
+            color: $txtAndIconColor;
+            transition: color 0.3s ease;
+        }
+
+        .iconButton {
+            font-size: 2rem;
+
+            * {
+                transition: color 0.3s ease;
+                color: $txtAndIconColor;
+            }
+        }
+
+        .containerCustomIcon{
+            height: 100%;
+            aspect-ratio: 1/1;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            & > * {
+                height: 95%;
+                width: auto;
+            }
+        }
+    }
+
+    .btnBordered#{$themeBtn} {
+        border: 3px solid $bgColor;
+        background: transparent;
+
+        p {
+            color: $bgColor;
+        }
+
+        .iconButton {
+            * {
+                color: $bgColor;
+            }
+        }
+        
+        &:hover {
+            background: $bgColor;
+
+            p{
+                color: $txtAndIconColor;
+            }
+                
+            .iconButton {
+                * {
+                    color: $txtAndIconColor;
+                }
+            }
+        }
+    }
+}

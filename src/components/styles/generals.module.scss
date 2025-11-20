@@ -30,18 +30,6 @@
   font-weight: bolder;
 }
 
-@font-face {
-  font-family: 'MetalMania';
-  src: url('../assets/fonts/Metal_Mania/MetalMania-Regular.ttf') format('truetype');
-  font-weight: normal;
-}
-
-@font-face {
-  font-family: 'BebasNeue';
-  src: url('../assets/fonts/Bebas_Neue/BebasNeue-Regular.ttf') format('truetype');
-  font-weight: normal;
-}
-
 // #endregion
 
 *{
@@ -51,5 +39,5 @@
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
-    font-family: OpenSansRegular, Arial, Helvetica, sans-serif;
+    font-family: OpenSansBolder, Arial, Helvetica, sans-serif;
 }

@@ -1,6 +1,4 @@
-const BRIGHTNESS_THRESHOLD: number = 150;
-
-// obtiene el valor de redondeo segun el parametro 'rounded'
+//#region OBTENER VALOR DE BORDER RADIUS
 
 export const getRoundedValue = (rounded: string): number => {
     switch (rounded) {
@@ -18,3 +16,5 @@ export const getRoundedValue = (rounded: string): number => {
             return 0;
     }
 };
+
+//#endregion
