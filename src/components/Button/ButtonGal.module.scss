@@ -1,4 +1,5 @@
 @use "@/components/styles/generals.module.scss" as *;
+@use "sass:list";
 
 $themes: (
     ThemeDark: (#000000, #464646, #ffffff),
@@ -12,9 +13,9 @@ $themes: (
 );
 
 @each $themeBtn, $colorList in $themes{
-    $bgColor: nth($colorList, 1);
-    $hoverColor: nth($colorList, 2);
-    $txtAndIconColor: nth($colorList, 3);
+    $bgColor: list.nth($colorList, 1);
+    $hoverColor: list.nth($colorList, 2);
+    $txtAndIconColor: list.nth($colorList, 3);
 
     .btn#{$themeBtn} {
         display: flex;

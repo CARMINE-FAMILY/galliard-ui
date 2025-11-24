@@ -43,8 +43,10 @@ export interface InputProps {
     seeIconRight?: boolean;
     iconColorL?: string;
     iconColorR?: string;
+    iconColorPass?: string;
     iconSizeL?: number;
     iconSizeR?: number;
+    iconSizePass?: number;
     iconLeft?: string;
     iconRight?: string;
 
