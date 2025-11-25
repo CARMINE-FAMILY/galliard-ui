@@ -28,7 +28,8 @@ type Story = StoryObj<typeof meta>;
 // Historia 1: El estado por defecto (sin placeholder o vacío)
 export const Default: Story = {
   args: {
-    customContainerClass: 'conta'
+    customContainerClass: 'conta',
+    label: "Usuario:"
   },
 };
 

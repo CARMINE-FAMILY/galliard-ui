@@ -1,6 +1,6 @@
-@use './generals.module.scss' as *;
+@use "./generals.module.scss" as *;
 
-@mixin input-general-styles{
+@mixin input-general-styles {
     outline: none;
     border: none;
     display: flex;
@@ -9,18 +9,14 @@
     justify-content: center;
     gap: 0.5rem;
 
-    label{
-        font-family: OpenSansSemiBold;
-        font-size: 1.4rem;
-    }
-
-    .containerInputError{
+    .containerInputError {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
         justify-content: center;
+        position: relative;
 
-        .containerInput{
+        .containerInput {
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -28,54 +24,59 @@
             background-color: #fff;
             overflow: hidden;
             border: 1px solid #000;
-            padding-inline: 10px;
-            gap: .5rem;
-            height: 35px;
-            width: fit-content;
+            gap: 0.5rem;
+            position: relative;
+            width: 100%;
 
-            .inputElement{
+            .inputElement {
                 font-size: 1.3rem;
                 padding: 5px 10px;
                 border: 0;
                 outline: none;
-                flex: 1;
-                width: 100%;
-                flex: 1;
                 background-color: transparent;
-            }
-            
-            .icon{
-                font-size: 2rem;
-                color: #000;
-
-                *{
-                    color: inherit;
-                }
+                position: relative;
             }
 
-            .containerCustomIcon{
-                height: 100%;
-                aspect-ratio: 1/1;
-                overflow: hidden;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-
-                & > * {
-                    height: 95%;
-                    width: auto;
-                }
-            }
-
-            &:focus-within{
+            &:focus-within {
                 border-width: 2px;
             }
         }
 
-        .errorMessage{
+        .errorMessage {
             font-family: OpenSansSemiBold;
             font-size: 1.1rem;
             color: #ff0000;
+            position: absolute;
+            top: 105%;
+
+            // Coloca ... si el texto no cabe en 2 lineas
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+        }
+    }
+
+    .icon {
+        font-size: 2rem;
+        color: #000;
+
+        * {
+            color: inherit;
+        }
+    }
+
+    .containerCustomIcon {
+        height: 100%;
+        aspect-ratio: 1/1;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        & > * {
+            height: 95%;
+            width: auto;
         }
     }
 }

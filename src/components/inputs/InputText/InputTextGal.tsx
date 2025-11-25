@@ -1,6 +1,6 @@
 import { Icon } from "@iconify/react";
-import type { InputProps } from "../../../models/Inputs/InputsModels";
-import { useState, forwardRef, useCallback, useMemo, useId } from "react";
+import type { InputProps } from "../../../models/Inputs/InputModel";
+import { useState, forwardRef, useMemo } from "react";
 import styles from "./InputTextGal.module.scss";
 import { getRoundedValue } from "../utils/Functions";
 
@@ -79,7 +79,7 @@ export const InputTextGal = forwardRef<HTMLInputElement, InputProps>(function In
                         borderRadius: getRounded,
                         width: (!width && typeInput === 'datetime-local') ? 'auto' : width,
                         height: height,
-                        border: border || border === undefined ? "1px solid #000" : "none",
+                        border: border || border === undefined ? "" : "none",
                         boxShadow: shadow ? "0 0 5px #00000075" : "",
                         backgroundColor: bgColor,
                     }}

@@ -2,4 +2,22 @@
 
 .container {
     @include input-general-styles;
+
+    label{
+        font-family: OpenSansSemiBold;
+        font-size: 1.3rem;
+    }
+
+    .containerInputError{
+        .containerInput{
+            height: 35px;
+            width: fit-content;
+            padding-inline: 10px;
+
+            .inputElement{
+                flex: 1;
+                width: 100%;
+            }
+        }
+    }
 }
