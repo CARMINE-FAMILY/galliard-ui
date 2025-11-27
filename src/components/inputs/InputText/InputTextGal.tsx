@@ -59,6 +59,7 @@ export const InputTextGal = forwardRef<HTMLInputElement, InputProps>(function In
             }}
         >
             <label
+                className={styles.title}
                 style={{
                     fontSize: textSize,
                     color: textColor,
@@ -91,7 +92,7 @@ export const InputTextGal = forwardRef<HTMLInputElement, InputProps>(function In
                             style={{ color: iconColorL, fontSize: iconSizeL }}
                         />
                         :
-                        <div className={`${styles.containerCustomIcon} ${customIconRClass}`}>
+                        <div className={`${styles.containerCustomIcon} ${customIconLClass}`}>
                             {// Icono izquierdo personalizado
                                 customIconLeft}
                         </div>

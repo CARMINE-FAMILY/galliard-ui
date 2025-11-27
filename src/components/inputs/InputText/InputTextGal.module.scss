@@ -3,11 +3,6 @@
 .container {
     @include input-general-styles;
 
-    label{
-        font-family: OpenSansSemiBold;
-        font-size: 1.3rem;
-    }
-
     .containerInputError{
         .containerInput{
             height: 35px;

@@ -8,6 +8,12 @@
     align-items: flex-start;
     justify-content: center;
     gap: 0.5rem;
+    position: relative;
+
+    .title{
+        font-family: OpenSansSemiBold;
+        font-size: 1.3rem;
+    }
 
     .containerInputError {
         display: flex;
