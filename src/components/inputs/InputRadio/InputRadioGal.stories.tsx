@@ -35,7 +35,7 @@ export const Default: Story = {
       {value: "2", label: "Turno 2", seeIcon: false},
       {value: "3", label: "Turno 3", seeIcon: false}
     ],
-    setValue: (e) => {alert(e)},
+    setValue: (e: any) => {alert(e)},
     errorMessage: "Los campos son obligatorios",
     HorV: 'vertical'
   },
@@ -50,7 +50,7 @@ export const WithIcons: Story = {
       {value: "1", label: "Hombre", seeIcon: true, icon: "fxemoji:man"},
       {value: "2", label: "Mujer", seeIcon: false, customIcon: <img style={{height: '95%', width: 'auto', display: 'flex', justifyContent: 'center' }} src='https://cdnb.artstation.com/p/assets/images/images/040/288/947/large/foritis-wang-irelia.jpg?1628431072'/>}
     ],
-    setValue: (e) => {alert(e)},
+    setValue: (e: any) => {alert(e)},
     errorMessage: 'Este campo es obligatorio',
     HorV: 'horizontal'
   },

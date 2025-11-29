@@ -14,7 +14,6 @@ export const InputRadioGal = forwardRef<HTMLInputElement, RadioProps>(function I
         name,
 
         HorV = 'horizontal',
-        iconColor,
         iconSize,
 
         customInputClass,
@@ -57,7 +56,7 @@ export const InputRadioGal = forwardRef<HTMLInputElement, RadioProps>(function I
                                     <Icon
                                         icon={option.icon ?? "mi:user"}
                                         className={`${styles.icon} ${option.customIconClass}`}
-                                        style={{ color: iconColor, fontSize: iconSize }}
+                                        style={{ color: option.iconColor, fontSize: iconSize }}
                                     />
                                     :
                                     <div className={`${styles.containerCustomIcon} ${option.customIconClass}`}>

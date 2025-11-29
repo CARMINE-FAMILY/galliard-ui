@@ -24,7 +24,6 @@ export interface RadioProps{
     
     HorV?: 'horizontal' | 'vertical';
     iconSize?: string | number;
-    iconColor?: string;
 
     customInputClass?: string;
     customLabelClass?: string;
