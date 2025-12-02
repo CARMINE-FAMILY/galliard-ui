@@ -1,7 +1,7 @@
 import { Icon } from "@iconify/react";
 import { forwardRef, useId } from "react";
 import styles from "./InputRadioGal.module.scss";
-import type { RadioProps } from "../../../models/Inputs/InputRadio";
+import type { RadioProps } from "../../../models/Inputs/InputRadioModel";
 
 export const InputRadioGal = forwardRef<HTMLInputElement, RadioProps>(function InputRadio(
     {
