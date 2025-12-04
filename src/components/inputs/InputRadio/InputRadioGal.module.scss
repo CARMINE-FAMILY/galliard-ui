@@ -3,6 +3,21 @@
 .container {
     @include input-general-styles;
 
+    .containerLabel {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        width: 100%;
+        height: fit-content;
+        gap: 0.5rem;
+
+        label {
+            font-family: OpenSansSemiBold;
+            font-size: 1.3rem;
+        }
+    }
+
     .containerInputError {
         width: 100%;
 

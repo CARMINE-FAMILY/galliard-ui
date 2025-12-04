@@ -21,11 +21,18 @@ export interface RadioProps{
     labelSize?: number | string;
     labelColor?: string;
     errorMessage?: string;
+    iconInRight?: boolean;
     
     HorV?: 'horizontal' | 'vertical';
+    icon?: string;
     iconSize?: string | number;
+    iconColor?: string;
+    seeIcon?: boolean;
+    customIcon?: React.ReactElement;
 
     customInputClass?: string;
     customLabelClass?: string;
+    customTextClass?: string;
+    customIconLabelClass?: string;
     customContainerRadiosClass?: string;
 }

@@ -6,18 +6,27 @@ import type { RadioProps } from "../../../models/Inputs/InputRadioModel";
 export const InputRadioGal = forwardRef<HTMLInputElement, RadioProps>(function InputRadio(
     {
         label,
+        labelSize,
+        labelColor,
         options,
         errorMessage,
         textSize,
         textColor,
         setValue,
         name,
-
+        
         HorV = 'horizontal',
+        icon,
+        iconInRight,
         iconSize,
+        iconColor,
+        customIcon,
+        seeIcon = true,
 
         customInputClass,
         customLabelClass,
+        customTextClass,
+        customIconLabelClass,
         customContainerRadiosClass
     },
     ref
@@ -26,7 +35,32 @@ export const InputRadioGal = forwardRef<HTMLInputElement, RadioProps>(function I
 
     return (
         <div ref={ref} className={styles.container}>
-            <p className={styles.title}>{label}</p>
+            <div className={styles.containerLabel} style={{flexDirection: iconInRight ? 'row-reverse' : 'row', justifyContent: iconInRight ? 'flex-end' : 'flex-start'}}>
+
+                {!customIcon ? seeIcon &&
+                    <Icon
+                        icon={icon ?? "mi:user"}
+                        className={`${styles.icon} ${customIconLabelClass}`}
+                        style={{ color: iconColor, fontSize: iconSize }}
+                    />
+                    :
+                    <div
+                        className={`${styles.containerCustomIcon} ${customIconLabelClass}`}
+                        style={{ height: iconSize }}
+                    >
+                        {customIcon}
+                    </div>
+                }
+                <label
+                    style={{
+                        fontSize: labelSize,
+                        color: labelColor
+                    }}
+                    className={customTextClass}
+                >
+                    {label}
+                </label>
+            </div>
             
             <div className={styles.containerInputError}>
                 <div

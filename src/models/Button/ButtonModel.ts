@@ -3,19 +3,23 @@ import type { ButtonHTMLAttributes } from "react";
 export interface ButtonProps {
     // Propiedades
     label?: string;
-    icon?: string;
     action: () => void;
-    textSize?: string;
-    iconSize?: string;
+    textSize?: string | number;
     font?: 'OpenSansLight' | 'OpenSansRegular' | 'OpenSansSemiBold' | 'OpenSansBold' | 'OpenSansBolder';
     width?: string | number;
     height?: string | number;
+    
+    icon?: string;
+    seeIcon?: boolean;
+    iconSize?: string | number;
+    iconColor?: string;
+    iconOn?: 'left' | 'right';
 
     // temas
     styleType?: 'ThemeDark' | 'ThemeLight' | 'ThemeGreen' | 'ThemeRed' | 'ThemeBlue' | 'ThemeYellow' | 'ThemePurple' | 'ThemeGray';
     rounded?: "none" | "sm" | "md" | "lg" | "full";
     borderedStyle?: boolean;
-    iconOn?: 'left' | 'right';
+    padding?: string | number;
 
     // Sombra
     shadow?: boolean;

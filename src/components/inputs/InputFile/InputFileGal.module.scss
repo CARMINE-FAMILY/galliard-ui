@@ -1,0 +1,110 @@
+@use "@/components/styles/generalInputs.module.scss" as *;
+@use "@/components/styles/colors.module.scss" as *;
+
+.container {
+    @include input-general-styles;
+
+    .containerInputError {
+        width: 100%;
+
+        .containerInputFile {
+            width: 250px;
+            height: 40px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-around;
+            cursor: pointer;
+            transition:
+                scale 0.3s ease-in-out,
+                background-color 0.3s ease,
+                border 0.3s ease;
+            position: relative;
+            background-color: #6936ee;
+            gap: 1rem;
+            border-width: 2px;
+            border-style: solid;
+            border-color: transparent;
+            padding: 10px;
+            overflow: hidden;
+
+            .textInput {
+                color: #fff;
+                font-family: OpenSansSemiBold;
+                font-size: 1.3rem;
+                text-align: center;
+                transition: all .3s ease;
+            }
+
+            .icon{
+                transition: all .3s ease;
+            }
+
+            .inputFile {
+                display: none;
+            }
+
+            &:hover {
+                scale: 1.05;
+            }
+
+            .dragContainer{
+                background-color: #fff;
+                width: 100%;
+                height: 100%;
+                position: absolute
+            }
+        }
+
+        .containerSelectedFile {
+            @extend .containerInputFile;
+            cursor: default;
+            background-color: #fff;
+
+            .fileName {
+                font-family: OpenSansSemiBold;
+                font-size: 1.3rem;
+                flex: 1;
+                width: 100%;
+                text-align: center;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            .icon{
+                font-size: 2.5rem;
+                color: #000;
+
+                *{
+                    color: inherit;
+                }
+            }
+
+            .backdrop {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: absolute;
+                background-color: #e1e1e150;
+                backdrop-filter: blur(3px);
+                opacity: 0;
+                visibility: hidden;
+                transition:
+                    opacity 0.3s ease,
+                    visibility 0.3s ease;
+            }
+
+            &:hover {
+                scale: 1;
+
+                .backdrop {
+                    opacity: 1;
+                    visibility: visible;
+                }
+            }
+        }
+    }
+}
