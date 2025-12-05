@@ -1,5 +1,5 @@
 import { Icon } from "@iconify/react";
-import React, { forwardRef, useId, useMemo, useRef, useState, type ChangeEvent, type DragEvent, type HtmlHTMLAttributes } from "react";
+import { forwardRef, useId, useMemo, useRef, useState, type ChangeEvent, type DragEvent } from "react";
 import styles from "./InputFileGal.module.scss";
 import type { InputFileProps } from "../../../models/Inputs/InputFileModel";
 import { usefileCatalogTranslate } from "../../../hooks/useFileCatalogTranslate";
