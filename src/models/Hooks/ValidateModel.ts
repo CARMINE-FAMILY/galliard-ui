@@ -5,15 +5,33 @@ interface BaseProps {
 }
 
 interface TextValidation extends BaseProps {
-    typeInput: 'text' | 'email' | 'phone' | 'url' | 'pass';
+    typeInput: 'text';
     value: string | null | undefined;
     
     maxLength?: number;
     minLength?: number;
-    onlyUpperCase?: boolean;
-    onlyLowerCase?: boolean;
     regex?: RegExp;
     needBeEqualTo?: string;
+}
+
+interface EmailValidation extends BaseProps {
+    typeInput: 'email';
+    value: string | null | undefined;
+}
+
+interface PhoneValidation extends BaseProps {
+    typeInput: 'phone';
+    value: string | null | undefined;
+}
+
+interface UrlValidation extends BaseProps {
+    typeInput: 'url';
+    value: string | null | undefined;
+}
+
+interface PassValidation extends BaseProps {
+    typeInput: 'pass';
+    value: string | null | undefined;
 }
 
 interface NumberValidation extends BaseProps {
@@ -34,15 +52,19 @@ interface BoolValidation extends BaseProps {
 }
 
 interface DateValidation extends BaseProps {
-    typeInput: 'date' | 'date-time' | 'time';
+    typeInput: 'date' | 'date-time';
     value: Date | string | number | null | undefined; 
     
     min?: Date;
     max?: Date;
-    canBeAfterToday?: boolean;
-    canBeBeforeToday?: boolean;
-    canBeAfterNow?: boolean;
-    canBeBeforeNow?: boolean;
+}
+
+interface TimeValidation extends BaseProps {
+    typeInput: 'time';
+    value: Date | string | number | null | undefined; 
+    
+    min?: Date;
+    max?: Date;
 }
 
 interface DataValidation extends BaseProps {
@@ -52,7 +74,13 @@ interface DataValidation extends BaseProps {
 
 export type ValidateProps = 
     | TextValidation 
+    | EmailValidation
+    | PhoneValidation
+    | UrlValidation
+    | PassValidation
     | NumberValidation 
     | BoolValidation 
     | DateValidation
-    | DataValidation;
+    | TimeValidation
+    | DataValidation
+;
