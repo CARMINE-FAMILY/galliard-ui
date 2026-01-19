@@ -1,4 +1,3 @@
-import type { InputHTMLAttributes } from "react";
 import type React from "react";
 
 interface PropsOptions{

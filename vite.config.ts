@@ -7,8 +7,18 @@ export default defineConfig({
   plugins: [
     react(),
     // Genera los archivos de tipos (.d.ts) automáticamente
-    dts({ rollupTypes: true }), 
+    dts({
+      rollupTypes: true,
+      exclude: ['**/*.test.ts', '**/*.stories.tsx']
+    }),
   ],
+  css: {
+    preprocessorOptions: {
+      scss: {
+        silenceDeprecations: ['legacy-js-api']
+      }
+    }
+  },
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src'),
@@ -19,7 +29,8 @@ export default defineConfig({
       // El punto de entrada principal de la librería
       entry: resolve(__dirname, 'src/index.ts'),
       name: 'Galliard UI',
-      fileName: 'galliard-ui',
+      fileName: 'index',
+      formats: ['es', 'cjs']
     },
     rollupOptions: {
       // Quien use la librería ya debería tener React instalado.
@@ -31,5 +42,5 @@ export default defineConfig({
         },
       },
     },
-  },
+  }
 });
