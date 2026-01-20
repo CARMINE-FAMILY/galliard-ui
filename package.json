@@ -1,10 +1,12 @@
 {
   "name": "galliard-ui",
-  "version": "1.0.0",
+  "version": "1.0.3",
+  "sideEffects": [
+    "**/*.css" 
+  ],
   "description": "Una librería de componentes UI moderna, flexible y basada en React, TypeScript y Sass.",
   "type": "module",
   "private": false,
-  
   "author": "EL4toCARMINE <dizzicraimer@gmail.com> (https://github.com/EL4toCAARMINE)",
   "license": "MIT",
   "repository": {
@@ -21,11 +23,9 @@
     "iconify"
   ],
   "homepage": "https://github.com/EL4toCAARMINE/galliard-ui#readme",
-
   "main": "./dist/galliard-ui.umd.cjs",
   "module": "./dist/galliard-ui.js",
   "types": "./dist/galliard-ui.d.ts",
-
   "exports": {
     ".": {
       "types": "./dist/galliard-ui.d.ts",
@@ -33,13 +33,11 @@
       "require": "./dist/galliard-ui.umd.cjs"
     }
   },
-
   "files": [
     "dist",
     "README.md",
     "LICENSE"
   ],
-
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -48,16 +46,13 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
-
   "dependencies": {
     "@iconify/react": "^6.0.2"
   },
-
   "peerDependencies": {
     "react": ">=18",
     "react-dom": ">=18"
   },
-
   "devDependencies": {
     "@chromatic-com/storybook": "4.1.2",
     "@eslint/js": "^9.39.1",
@@ -78,14 +73,15 @@
     "eslint-plugin-storybook": "10.0.7",
     "globals": "^16.5.0",
     "playwright": "^1.56.1",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
     "sass": "^1.94.0",
     "storybook": "10.0.7",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.3",
     "vite": "^7.3.1",
     "vite-plugin-dts": "^4.5.4",
-    "vitest": "^4.0.8",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "vite-plugin-lib-inject-css": "^2.2.2",
+    "vitest": "^4.0.8"
   }
 }

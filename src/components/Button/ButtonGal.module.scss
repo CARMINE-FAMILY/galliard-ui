@@ -1,15 +1,15 @@
-@use "@/components/styles/generals.module.scss" as *;
+@use "../../components/styles/generalInputs.module.scss" as *;
 @use "sass:list";
 
 $themes: (
-    ThemeDark: (#000000, #464646, #ffffff),
-    ThemeGreen: (#1fd545, #17ed4b, #ffffff),
-    ThemeBlue: (#1d4ed8, #2649ab, #ffffff),
-    ThemeRed: (#ff0000, #e60000, #ffffff),
-    ThemePurple: (#9d50dc, #6b21a8, #ffffff),
-    ThemeGray: (#374151, #1f2937, #ffffff),
-    ThemeLight: (#ffffff, #e1e1e1, #000000),
-    ThemeYellow: (#f59e0b, #d97706, #000000)
+    "ThemeDark": (#000000, #464646, #ffffff),
+    "ThemeGreen": (#1fd545, #17ed4b, #ffffff),
+    "ThemeBlue": (#1d4ed8, #2649ab, #ffffff),
+    "ThemeRed": (#ff0000, #e60000, #ffffff),
+    "ThemePurple": (#9d50dc, #6b21a8, #ffffff),
+    "ThemeGray": (#374151, #1f2937, #ffffff),
+    "ThemeLight": (#ffffff, #e1e1e1, #000000),
+    "ThemeYellow": (#f59e0b, #d97706, #000000)
 );
 
 @each $themeBtn, $colorList in $themes{

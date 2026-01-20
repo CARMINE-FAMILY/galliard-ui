@@ -1,5 +1,5 @@
-@use "@/components/styles/generalInputs.module.scss" as *;
-@use "@/components/styles/colors.module.scss" as *;
+@use "../../../components/styles/generalInputs.module.scss" as *;
+@use "../../../components/styles/colors.module.scss" as *;
 
 .container {
     @include input-general-styles;
