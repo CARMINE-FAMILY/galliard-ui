@@ -4,7 +4,8 @@ import { ButtonGal } from "./ButtonGal";
 const meta = {
     title: "Components/ButtonGal",
     component: ButtonGal,
-    tags: ["autodocs"],    parameters: {
+    tags: ["autodocs"],    
+    parameters: {
         layout: 'centered',
     }
 } satisfies Meta<typeof ButtonGal>;
