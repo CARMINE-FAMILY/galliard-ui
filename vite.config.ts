@@ -11,8 +11,8 @@ export default defineConfig({
     libInjectCss(),
     // Genera los archivos de tipos (.d.ts) automáticamente
     dts({
-      rollupTypes: false, // Cambia esto a false
-      insertTypesEntry: true, // Esto crea la entrada en el package.json automáticamente
+      rollupTypes: false,
+      insertTypesEntry: true,
       exclude: ['**/*.test.ts', '**/*.stories.tsx', '**/*.test.tsx']
     }),
   ],
