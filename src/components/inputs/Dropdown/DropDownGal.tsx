@@ -18,9 +18,9 @@ export const DropDownGal = forwardRef<HTMLInputElement, DropDownProps>(function 
 
         rounded,
         border = true,
-        textSize = '1.4rem',
+        textSize = '1.4em',
         textColor = '#000',
-        labelSize = '1.4rem',
+        labelSize = '1.4em',
         labelColor = '#000',
         width = 250,
         height = 40,

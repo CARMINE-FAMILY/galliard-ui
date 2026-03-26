@@ -14,7 +14,7 @@
             flex-direction: row;
             align-items: center;
             justify-content: flex-start;
-            gap: 0.5rem;
+            gap: 0.5em;
             position: relative;
             transition: all 0.3s ease;
             cursor: pointer;
@@ -24,7 +24,7 @@
             }
 
             label, a {
-                font-size: 1.4rem;
+                font-size: 1.4em;
                 font-family: OpenSansSemiBold;
                 cursor: pointer;
             }
@@ -34,8 +34,8 @@
             }
 
             .containerCustomIcon {
-                height: 2rem;
-                max-height: 6rem !important;
+                height: 2em;
+                max-height: 6em !important;
                 overflow: hidden;
                 display: flex;
                 align-items: center;

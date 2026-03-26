@@ -10,11 +10,11 @@
         justify-content: flex-start;
         width: 100%;
         height: fit-content;
-        gap: 0.5rem;
+        gap: 0.5em;
 
         label {
             font-family: OpenSansSemiBold;
-            font-size: 1.4rem;
+            font-size: 1.4em;
         }
     }
 
@@ -26,7 +26,7 @@
             flex-direction: column;
             align-items: flex-end;
             padding: 5px 10px 5px 10px;
-            gap: .5rem;
+            gap: .5em;
 
             .inputElement {
                 resize: none;
@@ -42,7 +42,7 @@
             .counterCharacter {
                 position: relative;
                 font-family: OpenSansRegular;
-                font-size: 1.1rem;
+                font-size: 1.1em;
 
             }
         }
