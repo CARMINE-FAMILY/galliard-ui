@@ -114,7 +114,7 @@ export const InputTextGal = forwardRef<HTMLInputElement, InputProps>(function In
                             onClick={()=>setSeePass(!seePass)}
                             icon={seePass ? "fluent:eye-20-filled" : "fluent:eye-hide-20-filled"}
                             className={`${styles.icon}`}
-                            style={{ color: iconColorPass, fontSize: iconSizePass, marginRight: 10 }}
+                            style={{ color: iconColorPass, fontSize: iconSizePass, marginRight: 10, cursor: typeInput == 'password' ? 'pointer': 'default'  }}
                         />
                     }
 
@@ -123,7 +123,7 @@ export const InputTextGal = forwardRef<HTMLInputElement, InputProps>(function In
                         <Icon
                             icon={iconRight ?? "mi:user"}
                             className={`${styles.icon} ${customIconRClass}`}
-                            style={{ color: iconColorR, fontSize: iconSizeR }}
+                            style={{ color: iconColorR, fontSize: iconSizeR}}
                         />
                         :
                         <div className={`${styles.containerCustomIcon} ${customIconRClass}`}>
