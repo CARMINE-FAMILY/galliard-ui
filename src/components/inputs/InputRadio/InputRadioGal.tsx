@@ -14,6 +14,8 @@ export const InputRadioGal = forwardRef<HTMLInputElement, RadioProps>(function I
         textColor,
         setValue,
         name,
+        font,
+        fontLabel,
         
         HorV = 'horizontal',
         icon,
@@ -54,7 +56,8 @@ export const InputRadioGal = forwardRef<HTMLInputElement, RadioProps>(function I
                 <label
                     style={{
                         fontSize: labelSize,
-                        color: labelColor
+                        color: labelColor,
+                        fontFamily: fontLabel
                     }}
                     className={customTextClass}
                 >
@@ -104,6 +107,7 @@ export const InputRadioGal = forwardRef<HTMLInputElement, RadioProps>(function I
                                     style={{
                                         fontSize: textSize,
                                         color: textColor,
+                                        fontFamily: font
                                     }}
                                 >
                                     {option.label}

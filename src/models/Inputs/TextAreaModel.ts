@@ -9,6 +9,8 @@ export interface TextAreaProps {
     errorMessage?: string;
     seeMaxCharCounter?: boolean;
     maxCharacters?: number;
+    font?: 'OpenSansLight' | 'OpenSansRegular' | 'OpenSansSemiBold' | 'OpenSansBold' | 'OpenSansBolder';
+    fontLabel?: 'OpenSansLight' | 'OpenSansRegular' | 'OpenSansSemiBold' | 'OpenSansBold' | 'OpenSansBolder';
 
     // Estilos
     rounded?: "none" | "sm" | "md" | "lg";

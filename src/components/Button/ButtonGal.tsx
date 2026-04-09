@@ -10,7 +10,9 @@ export const ButtonGal = forwardRef<HTMLButtonElement, ButtonProps>(function But
     font,
     width,
     height,
-    
+    bgColor,
+    txtColor,
+
     icon = "tabler:send",
     seeIcon = true,
     textSize,
@@ -48,7 +50,8 @@ export const ButtonGal = forwardRef<HTMLButtonElement, ButtonProps>(function But
                 height: height ?? 'auto',
                 flexDirection: iconOn === 'left' ? "row-reverse" : 'row',
                 boxShadow: `${shadow ? '0 0 7px ' + (colorShadow ? colorShadow : '#000') : ''}`,
-                padding: padding
+                padding: padding,
+                background: bgColor,
             }}
             onClick={(e) => {
                 e.preventDefault();
@@ -61,7 +64,8 @@ export const ButtonGal = forwardRef<HTMLButtonElement, ButtonProps>(function But
                     className={`${customClassLabel}`}
                     style={{
                         fontSize: textSize,
-                        fontFamily: font
+                        fontFamily: font,
+                        color: txtColor
                     }}
                 >
                     {label}

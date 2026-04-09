@@ -15,6 +15,8 @@ export const DropDownGal = forwardRef<HTMLInputElement, DropDownProps>(function 
         errorMessage,
         orientation = 'bottom',
         iconInRight = false,
+        font,
+        fontLabel,
 
         rounded,
         border = true,
@@ -86,7 +88,8 @@ export const DropDownGal = forwardRef<HTMLInputElement, DropDownProps>(function 
                     className={customLabelClass}
                     style={{
                         fontSize: labelSize,
-                        color: labelColor
+                        color: labelColor,
+                        fontFamily: fontLabel
                     }}
                 >
                     {label}
@@ -130,7 +133,8 @@ export const DropDownGal = forwardRef<HTMLInputElement, DropDownProps>(function 
                             style={{
                                 fontSize: labelSize,
                                 color: labelColor,
-                                fontWeight: value?.valueOption ? 'bold' : ''
+                                fontWeight: value?.valueOption ? 'bold' : '',
+                                fontFamily: font
                             }}
                         >
                             {value?.text ? value.text : defaultValue.text}
@@ -181,6 +185,7 @@ export const DropDownGal = forwardRef<HTMLInputElement, DropDownProps>(function 
                                         style={{
                                             fontSize: textSize,
                                             color: textColor,
+                                            fontFamily: font
                                         }}
                                     >
                                         {option.text ? option.text : defaultValue.text}

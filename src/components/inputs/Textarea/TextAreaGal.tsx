@@ -14,6 +14,8 @@ export const TextAreaGal = forwardRef<HTMLTextAreaElement, TextAreaProps>(functi
         seeMaxCharCounter = true,
         maxCharacters = 300,
         resize = true,
+        font,
+        fontLabel,
 
         rounded,
         width = 250,
@@ -69,7 +71,8 @@ export const TextAreaGal = forwardRef<HTMLTextAreaElement, TextAreaProps>(functi
                 <label
                     style={{
                         fontSize: textSize,
-                        color: textColor
+                        color: textColor,
+                        fontFamily: fontLabel
                     }}
                 >
                     {label}
@@ -99,6 +102,7 @@ export const TextAreaGal = forwardRef<HTMLTextAreaElement, TextAreaProps>(functi
                         style={{
                             fontSize: textSize,
                             color: textColor,
+                            fontFamily: font
                         }}
                         placeholder={placeholder}
                         value={value}

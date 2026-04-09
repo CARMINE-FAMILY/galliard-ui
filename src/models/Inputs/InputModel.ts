@@ -20,6 +20,8 @@ export interface InputProps {
     label?: string;
     typeInput?: CompatibleInputTypes;
     errorMessage?: string;
+    font?: 'OpenSansLight' | 'OpenSansRegular' | 'OpenSansSemiBold' | 'OpenSansBold' | 'OpenSansBolder';
+    fontLabel?: 'OpenSansLight' | 'OpenSansRegular' | 'OpenSansSemiBold' | 'OpenSansBold' | 'OpenSansBolder';
 
     // Estilos
     rounded?: "none" | "sm" | "md" | "lg" | "full";

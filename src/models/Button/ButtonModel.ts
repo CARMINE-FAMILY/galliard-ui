@@ -8,6 +8,8 @@ export interface ButtonProps {
     font?: 'OpenSansLight' | 'OpenSansRegular' | 'OpenSansSemiBold' | 'OpenSansBold' | 'OpenSansBolder';
     width?: string | number;
     height?: string | number;
+    bgColor?: string;
+    txtColor?: string;
     
     icon?: string;
     seeIcon?: boolean;

@@ -15,6 +15,8 @@ export interface DropDownProps {
     errorMessage?: string;
     iconInRight?: boolean;
     orientation?: 'top' | 'left' | 'right' | 'bottom'; 
+    font?: 'OpenSansLight' | 'OpenSansRegular' | 'OpenSansSemiBold' | 'OpenSansBold' | 'OpenSansBolder';
+    fontLabel?: 'OpenSansLight' | 'OpenSansRegular' | 'OpenSansSemiBold' | 'OpenSansBold' | 'OpenSansBolder';
 
     rounded?: "none" | "sm" | "md" | "lg" | "full",
     border?: boolean;

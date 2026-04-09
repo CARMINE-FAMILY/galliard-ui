@@ -9,6 +9,7 @@ export interface CheckProps {
     errorMessage?: string;
     useLinkable?: boolean;
     link?: string;
+    font?: 'OpenSansLight' | 'OpenSansRegular' | 'OpenSansSemiBold' | 'OpenSansBold' | 'OpenSansBolder';
 
     iconSize?: string | number;
     seeIcon: boolean;

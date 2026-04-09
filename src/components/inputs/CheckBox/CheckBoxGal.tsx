@@ -13,6 +13,7 @@ export const CheckBoxGal = forwardRef<HTMLInputElement, CheckProps>(function Cke
         setValue,
         useLinkable,
         link,
+        font,
 
         iconSize,
         seeIcon,
@@ -61,7 +62,8 @@ export const CheckBoxGal = forwardRef<HTMLInputElement, CheckProps>(function Cke
                             style={{
                                 fontSize: textSize,
                                 color: textColor,
-                                textDecoration: 'underline'
+                                textDecoration: 'underline',
+                                fontFamily: font
                             }}
                         >
                             {label}
@@ -72,7 +74,8 @@ export const CheckBoxGal = forwardRef<HTMLInputElement, CheckProps>(function Cke
                             className={customLabelClass}
                             style={{
                                 fontSize: textSize,
-                                color: textColor
+                                color: textColor,
+                                fontFamily: font
                             }}
                         >
                             {label}

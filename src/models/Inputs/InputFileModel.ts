@@ -10,6 +10,7 @@ export interface InputFileProps {
     setSelectedFileE: (e: File | null) => void;
     maxMBSize?: number;
     shadow?: boolean;
+    font?: 'OpenSansLight' | 'OpenSansRegular' | 'OpenSansSemiBold' | 'OpenSansBold' | 'OpenSansBolder';
 
     width?: string | number;
     height?: string | number;

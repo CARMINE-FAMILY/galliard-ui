@@ -21,6 +21,8 @@ export interface RadioProps{
     labelColor?: string;
     errorMessage?: string;
     iconInRight?: boolean;
+    font?: 'OpenSansLight' | 'OpenSansRegular' | 'OpenSansSemiBold' | 'OpenSansBold' | 'OpenSansBolder';
+    fontLabel?: 'OpenSansLight' | 'OpenSansRegular' | 'OpenSansSemiBold' | 'OpenSansBold' | 'OpenSansBolder';
     
     HorV?: 'horizontal' | 'vertical';
     icon?: string;

@@ -16,6 +16,7 @@ export const InputFileGal = forwardRef<HTMLInputElement, InputFileProps>(functio
         maxMBSize,
         shadow = true,
         textButtonCancel = "Cancelar",
+        font,
 
         width,
         height,
@@ -157,7 +158,8 @@ export const InputFileGal = forwardRef<HTMLInputElement, InputFileProps>(functio
                             ,
 
                             width: width,
-                            height: height
+                            height: height,
+                            fontFamily: font
                         }}
                     >
 
@@ -191,7 +193,8 @@ export const InputFileGal = forwardRef<HTMLInputElement, InputFileProps>(functio
                                 fontSize: labelSize,
                                 color: !dragActive ?
                                     labelColor : bgColor ?
-                                        bgColor : '#6936ee'
+                                        bgColor : '#6936ee',
+                                fontFamily: font
 
                             }}
                             onDragEnter={handleDrag}
@@ -226,7 +229,7 @@ export const InputFileGal = forwardRef<HTMLInputElement, InputFileProps>(functio
                                 className={styles.icon}
                             />
                         }
-                        <p className={styles.fileName}>{selectedFile?.name}</p>
+                        <p className={styles.fileName} style={{fontFamily: font}}>{selectedFile?.name}</p>
 
                         <div className={styles.backdrop} style={{ borderRadius: getRounded }}>
                             <ButtonGal

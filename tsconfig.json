@@ -22,9 +22,8 @@
     "noFallthroughCasesInSwitch": true,
     
     /* Rutas */
-    "baseUrl": ".",
     "paths": {
-      "*": ["src/*"]
+      "@/*": ["./src/*"]
     }
   },
   // IMPORTANTE: Solo incluimos src. 

@@ -13,6 +13,8 @@ export const InputTextGal = forwardRef<HTMLInputElement, InputProps>(function In
         typeInput,
         HorV,
         errorMessage,
+        font,
+        fontLabel,
 
         rounded,
         width,
@@ -68,6 +70,7 @@ export const InputTextGal = forwardRef<HTMLInputElement, InputProps>(function In
                     alignItems: HorV === "horizontal" ? 'center' : 'initial',
                     marginRight: HorV === "horizontal" ? 10 : 0,
                     marginBottom: HorV === "vertical" ? 5 : 0,
+                    fontFamily: fontLabel
                 }}
             >
                 {label}
@@ -101,7 +104,7 @@ export const InputTextGal = forwardRef<HTMLInputElement, InputProps>(function In
                     <input
                         ref={ref}
                         className={`${styles.inputElement} ${customInputClass}`}
-                        style={{ fontSize: textSize, color: textColor }}
+                        style={{ fontSize: textSize, color: textColor, fontFamily: font}}
                         type={typeInput === 'password' && seePass ? 'text' : typeInput}
                         placeholder={placeholder}
                         value={value}
