@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import type { ValidateProps } from "../models/Hooks/ValidateModel";
 import { convertToUnix, unixToDateTime } from "../funtions/UnixActions";
 
-export default function useValidateForms(validations: ValidateProps[]): boolean {
+export function useValidateForms(validations: ValidateProps[]): boolean {
     let flag: boolean = true;
 
     //#region Funcionmes generales
