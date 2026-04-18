@@ -28,6 +28,7 @@ export interface DropDownProps {
     height?: number | string;
     bgColor?: string;
     shadow?: boolean;
+    HorV?: "horizontal" | "vertical";
 
     icon?: string;
     iconSize?: string | number;

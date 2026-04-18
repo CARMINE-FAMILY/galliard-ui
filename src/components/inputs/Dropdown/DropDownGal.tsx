@@ -28,6 +28,7 @@ export const DropDownGal = forwardRef<HTMLInputElement, DropDownProps>(function 
         height = 40,
         bgColor,
         shadow = false,
+        HorV = "vertical",
 
         icon,
         iconSize = 20,
@@ -67,7 +68,13 @@ export const DropDownGal = forwardRef<HTMLInputElement, DropDownProps>(function 
     }, [rounded]);
 
     return (
-        <div ref={ref} className={`${styles.container} ${customContainerClass}`}>
+        <div 
+            ref={ref} 
+            className={`${styles.container} ${customContainerClass}`} 
+            style={{
+                flexDirection: HorV === "horizontal" ? "row" : "column"
+            }}
+        >
             <div className={styles.containerLabel} style={{ flexDirection: iconInRight ? 'row-reverse' : 'row', justifyContent: iconInRight ? 'flex-end' : 'flex-start' }}>
 
                 {!customIcon ? seeIcon &&
@@ -89,6 +96,11 @@ export const DropDownGal = forwardRef<HTMLInputElement, DropDownProps>(function 
                     style={{
                         fontSize: labelSize,
                         color: labelColor,
+                        height: HorV === "horizontal" ? 35 : 'auto',
+                        display: HorV === "horizontal" ? 'flex' : 'block',
+                        alignItems: HorV === "horizontal" ? 'center' : 'initial',
+                        marginRight: HorV === "horizontal" ? 10 : 0,
+                        marginBottom: HorV === "vertical" ? 5 : 0,
                         fontFamily: fontLabel
                     }}
                 >
