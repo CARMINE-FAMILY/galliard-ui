@@ -15,6 +15,7 @@ export const InputTextGal = forwardRef<HTMLInputElement, InputProps>(function In
         errorMessage,
         font,
         fontLabel,
+        labelColor,
 
         rounded,
         width,
@@ -64,7 +65,7 @@ export const InputTextGal = forwardRef<HTMLInputElement, InputProps>(function In
                 className={styles.title}
                 style={{
                     fontSize: textSize,
-                    color: textColor,
+                    color: labelColor,
                     height: HorV === "horizontal" ? 35 : 'auto',
                     display: HorV === "horizontal" ? 'flex' : 'block',
                     alignItems: HorV === "horizontal" ? 'center' : 'initial',

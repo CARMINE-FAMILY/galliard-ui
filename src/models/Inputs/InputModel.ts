@@ -31,6 +31,7 @@ export interface InputProps {
     border?: boolean;
     textSize?: number | string;
     textColor?: string;
+    labelColor?: string;
     bgColor?: string;
     HorV?: "horizontal" | "vertical";
 
