@@ -1,8 +1,8 @@
 {
   "name": "galliard-ui",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "sideEffects": [
-    "**/*.css" 
+    "**/*.css"
   ],
   "description": "Una librería de componentes UI moderna, flexible y basada en React, TypeScript y Sass.",
   "type": "module",
@@ -44,10 +44,12 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "tatakae-component": "plop --plopfile scripts/createComponent.js"
   },
   "dependencies": {
-    "@iconify/react": "^6.0.2"
+    "@iconify/react": "^6.0.2",
+    "plop": "^4.0.5"
   },
   "peerDependencies": {
     "react": ">=18",
