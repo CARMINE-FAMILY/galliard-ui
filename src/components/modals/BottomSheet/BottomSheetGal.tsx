@@ -8,10 +8,10 @@ export function BottomSheetGal({
     // isOpen = true,
     // setIsOpen,
     transitionDuration = 0.5,
-    canDisapear = true,
+    canDisapear = false,
     disapearPercent = 20,
     startHeightPercentPosition = 50,
-    maxHeightPercentPosition = 70,
+    maxHeightPercentPosition = 90,
     minHeightPercentPosition = 20,
     widthPercent = "90%",
     useBackdrop = true,
@@ -25,10 +25,10 @@ export function BottomSheetGal({
     const startHeight = useRef<number>(0);
     const [isOpen, setIsOpen] = useState<boolean>(true);
     const [screenHeight, setScreenHeight] = useState<number>(window.innerHeight);
-    const [onePercentScreen, setOnePercentScreen] = useState<number>(0);
 
     // Posiciones del bottomsheet
-    const [screenStartsIn, setScreenStartsIn] = useState<number>(0);
+    const [pxVariant, setPxVariant] = useState<number>(0);
+    const [percentFixed, setPercentFixed] = useState<number>(0);
     const [screenInitial, setScreenInitial] = useState<number>(0);
     const [screenMin, setScreenMin] = useState<number>(0);
     const [screenMax, setScreenMax] = useState<number>(0);
@@ -54,7 +54,6 @@ export function BottomSheetGal({
     useEffect(() => {
         if (screenHeight > 0) {
             const percentTemp: number = screenHeight / 100;
-            setOnePercentScreen(percentTemp);
 
             if (canDisapear) {
                 setThreshold(percentTemp * disapearPercent);
@@ -62,7 +61,8 @@ export function BottomSheetGal({
 
             let sTemp: number = percentTemp * startHeightPercentPosition;
 
-            setScreenStartsIn(sTemp);
+            setPxVariant(sTemp);
+            setPercentFixed(startHeightPercentPosition);
             setScreenInitial(sTemp);
 
             if (minHeightPercentPosition) {
@@ -86,16 +86,66 @@ export function BottomSheetGal({
         document.body.classList.toggle('noSelect', isDragging);
     }, [isDragging]);
 
+    // Calculara en que posicion debe rebotar el bottom sheet al terminar el dragg
+    const bounceEndDragg = () => {
+        // si se partio desde la posicion inicial
+        if (percentFixed === startHeightPercentPosition) {
+            if ((minHeightPercentPosition && screenMin) && (pxVariant < screenMin)) {
+                startHeight.current = screenMin;
+                setPercentFixed(minHeightPercentPosition);
+            }
+
+            if ((maxHeightPercentPosition && screenMax) && (pxVariant > screenMax)) {
+                startHeight.current = screenMax;
+                setPercentFixed(maxHeightPercentPosition);
+            }
+        }
+
+        // si parte del valor minimo
+        if (minHeightPercentPosition && percentFixed === minHeightPercentPosition) {
+            if (screenMin && (pxVariant > screenMin && pxVariant < screenInitial)) {
+                startHeight.current = screenMin;
+                setPercentFixed(minHeightPercentPosition);
+            }
+
+            if (pxVariant >= screenInitial && pxVariant < screenMax) {
+                startHeight.current = screenInitial;
+                setPercentFixed(startHeightPercentPosition);
+            }
+
+            if ((maxHeightPercentPosition && screenMax) && (pxVariant > screenMax)) {
+                startHeight.current = screenMax;
+                setPercentFixed(maxHeightPercentPosition);
+            }
+        }
+
+        // si parte del valor maximo
+        if (maxHeightPercentPosition && percentFixed === maxHeightPercentPosition) {
+            if (minHeightPercentPosition && screenMin && (pxVariant < screenMin)) {
+                startHeight.current = screenMin;
+                setPercentFixed(minHeightPercentPosition);
+            }
+
+            if (pxVariant <= screenInitial && pxVariant > screenMin) {
+                startHeight.current = screenInitial;
+                setPercentFixed(startHeightPercentPosition);
+            }
+
+            if (screenMax && (pxVariant < screenMax && pxVariant > screenInitial)) {
+                startHeight.current = screenMax;
+                setPercentFixed(maxHeightPercentPosition);
+            }
+        }
+    }
+
     // Manejo de los eventos de drag del panel de muentras se draggea y cuando se suelta
     useEffect(() => {
         // Maneja el movimiento del panel mientras se arrastra
-
-        // AQUI METER LA LOGICA PARA POSICION MAX Y MIN
         const handleDrag = (e: any) => {
             const y: number = 'touches' in e ? e.touches[0].clientY : e.clientY;
             const diff: number = y - startY.current;
 
-            setScreenStartsIn(startHeight.current - diff);
+            setPxVariant(startHeight.current - diff);
             setCurrentBottom(diff);
         };
 
@@ -112,11 +162,13 @@ export function BottomSheetGal({
                         setIsOpen(false);
                     } else {
                         setCurrentBottom(0);
-                        setScreenStartsIn(startHeight.current);
+                        bounceEndDragg();
+                        setPxVariant(startHeight.current);
                     }
                 } else {
                     setCurrentBottom(0);
-                    setScreenStartsIn(startHeight.current);
+                    bounceEndDragg();
+                    setPxVariant(startHeight.current);
                 }
             }
 
@@ -159,7 +211,7 @@ export function BottomSheetGal({
                 style={{
                     transform: `translate(-50%,${isOpen ? 0 : '100%'})`,
                     transition: `all ${isDragging ? 0 : transitionDuration}s ease`,
-                    height: (screenStartsIn) + "px",
+                    height: (pxVariant) + "px",
                     width: widthPercent
                 }}
                 {...args}
