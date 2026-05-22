@@ -1,0 +1,84 @@
+@use "../../styles/generals.module.scss" as *;
+@use "../../styles/colors.module.scss" as *;
+
+.bottomSheetCardComponent {
+    height: 200px;
+    background-color: #fff;
+    z-index: 999;
+    position: fixed;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    overflow: hidden;
+    box-shadow: 0 0 10px #00000050;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%);
+    
+    .headerBs {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        height: 40px;
+        width: 100%;
+        border-bottom: 1px solid #000;
+        cursor: grab;
+        pointer-events: all;
+        touch-action: none;
+
+        .icon {
+            font-size: 5rem;
+
+            * {
+                color: #000;
+            }
+        }
+
+        &:active {
+            cursor: grabbing;
+        }
+    }
+
+    .bodyBs {
+        flex: 1;
+        width: 100%;
+        overflow-y: auto;
+    }
+}
+
+.backdropSheetCardComponent {
+    height: 100vh !important;
+    width: 100vw !important;
+    // background-color: #99999935;
+    background-color: orange;
+    backdrop-filter: blur(5px);
+    bottom: 0;
+    z-index: 102;
+    position: fixed;
+    opacity: 0;
+    pointer-events: none;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+}
+
+body.no-select {
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+.containerChildrenBottomSheet {
+    flex: 1 !important;
+    height: 100% !important;
+    width: 100% !important;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 20px;
+    background-color: #212528;
+    position: relative;
+}
