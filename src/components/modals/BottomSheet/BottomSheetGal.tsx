@@ -1,12 +1,11 @@
-import { forwardRef, useMemo } from "react";
 import { Icon } from '@iconify/react/dist/iconify.js';
-import { Children, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { BottomSheetModel } from "@/models/Modals/BottomSheetModel";
 import styles from './BottomSheetGal.module.scss';
 
 export function BottomSheetGal({
-    // isOpen = true,
-    // setIsOpen,
+    isOpen = true,
+    setIsOpen = ():void => {console.log("Open change");},
     transitionDuration = 0.5,
     canDisapear = false,
     disapearPercent = 20,
@@ -17,13 +16,22 @@ export function BottomSheetGal({
     useBackdrop = true,
     children,
     closeOnBackdropClick = false,
+    headerBg,
+    bodyBg,
+    draggElementColor = "#000",
+    backdropBlur,
+    backdropColor,
+    customBackdropClass,
+    customBodyClass,
+    customContainerClass,
     ...args
 }: BottomSheetModel) {
     // Referencias para el panel y la posición inicial del drag
     const sheetRef = useRef<HTMLDivElement | null>(null);
     const startY = useRef<number>(0);
     const startHeight = useRef<number>(0);
-    const [isOpen, setIsOpen] = useState<boolean>(true);
+    // PARA PRUEBAS
+    // const [isOpen, setIsOpen] = useState<boolean>(true);
     const [screenHeight, setScreenHeight] = useState<number>(window.innerHeight);
 
     // Posiciones del bottomsheet
@@ -77,9 +85,16 @@ export function BottomSheetGal({
 
     // Desactiva el scroll del cuerpo cuando el panel está abierto
     useEffect(() => {
-        document.body.style.overflow = isOpen ? 'hidden' : 'visible';
+        if (canDisapear) { 
+            document.body.style.overflow = isOpen ? 'hidden' : ''; 
+        }
+        
         if (isOpen) setCurrentBottom(0);
-    }, [isOpen]);
+
+        return () => {
+             document.body.style.overflow = '';
+        }
+    }, [isOpen, canDisapear]);
 
     // Evita que se seleccione texto mientras se arrastra el panel
     useEffect(() => {
@@ -207,11 +222,12 @@ export function BottomSheetGal({
         <>
             <div
                 ref={sheetRef}
-                className={styles.bottomSheetCardComponent}
+                className={`${styles.bottomSheetCardComponent} ${customContainerClass}`}
                 style={{
-                    transform: `translate(-50%,${isOpen ? 0 : '100%'})`,
+                    transform: `translateX(-50%)`,
                     transition: `all ${isDragging ? 0 : transitionDuration}s ease`,
-                    height: (pxVariant) + "px",
+                    height: isOpen ? (pxVariant) + "px" : 0,
+                    visibility: isOpen ? "visible" : "hidden",
                     width: widthPercent
                 }}
                 {...args}
@@ -220,21 +236,24 @@ export function BottomSheetGal({
                     className={styles.headerBs}
                     onMouseDown={handleDragStart}
                     onTouchStart={handleDragStart}
+                    style={{background: headerBg}}
                 >
-                    <Icon icon="fluent:line-horizontal-1-16-filled" className={styles.icon} />
+                    <Icon icon="fluent:line-horizontal-1-16-filled" className={styles.icon} style={{ "--color-dinamico": draggElementColor } as React.CSSProperties} />
                 </div>
-                <div className={styles.bodyBs}>
+                <div className={`${styles.bodyBs} ${customBodyClass}`} style={{background: bodyBg}}>
                     {children}
                 </div>
             </div>
 
             {useBackdrop &&
                 <div
-                    className={styles.backdropSheetCardComponent}
+                    className={`${styles.backdropSheetCardComponent} ${customBackdropClass}`}
                     style={{
                         opacity: isOpen ? 1 : 0,
                         pointerEvents: isOpen ? 'auto' : 'none',
-                        transition: `opacity ${transitionDuration}s ease`
+                        transition: `opacity ${transitionDuration}s ease`,
+                        backdropFilter: `blur(${backdropBlur}px)`,
+                        background: backdropColor
                     }}
                     onClick={() => closeOnBackdropClick && setIsOpen(false)}
                 ></div>
