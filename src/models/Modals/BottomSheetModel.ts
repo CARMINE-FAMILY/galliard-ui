@@ -1,4 +1,4 @@
-import type { HTMLAttributes, HtmlHTMLAttributes } from "react";
+import type { HTMLAttributes } from "react";
 
 export interface BottomSheetModel {
     isOpen?: boolean;
