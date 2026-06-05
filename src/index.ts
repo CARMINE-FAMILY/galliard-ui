@@ -17,9 +17,6 @@ export * from './components/Button/ButtonGal';
 export * from './hooks/useOnClickOutside';
 export * from './hooks/useValidateForms';
 
-// DATE UNIX FUNCTIONS
-export * from './funtions/UnixActions';
-
 // MODALS
 export * from './components/modals/BottomSheet/BottomSheetGal';
 
