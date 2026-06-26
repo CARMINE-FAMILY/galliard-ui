@@ -1,0 +1,209 @@
+@use "sass:map";
+
+$ct-font-family: "Fira Code", "Cascadia Code", "Consolas", monospace;
+
+// ============================================================
+// Mismos 8 temas que CodeBlock/CollapsibleCode. Si agregas o
+// cambias un tema aqui, actualiza tambien los otros dos archivos
+// para que no queden desincronizados.
+// ============================================================
+$themes: (
+  black: (
+    bg: #1e1e1e,
+    border: #2d2d2d,
+    text: #d4d4d4,
+    button-bg: #252528,
+    button-border: #3d3d3d,
+    success: #4ade80,
+  ),
+  light: (
+    bg: #f8fafc,
+    border: #e2e8f0,
+    text: #1e293b,
+    button-bg: #ffffff,
+    button-border: #cbd5e1,
+    success: #16a34a,
+  ),
+  dracula: (
+    bg: #282a36,
+    border: #44475a,
+    text: #f8f8f2,
+    button-bg: #21222c,
+    button-border: #44475a,
+    success: #50fa7b,
+  ),
+  solarized-light: (
+    bg: #fdf6e3,
+    border: #d3cbb7,
+    text: #073642,
+    button-bg: #eee8d5,
+    button-border: #d3cbb7,
+    success: #859900,
+  ),
+  orange: (
+    bg: #fdb287,
+    border: #ff7a4a,
+    text: #1f2328,
+    button-bg: #fcc792,
+    button-border: #ff9d66,
+    success: #43a047,
+  ),
+  green: (
+    bg: #bff3d0,
+    border: #4dd0a0,
+    text: #1f3d32,
+    button-bg: #d3f7e3,
+    button-border: #72dfb2,
+    success: #27ae60,
+  ),
+
+  blue: (
+    bg: #33475b,
+    border: #64b5f6,
+    text: #e3f2fd,
+    button-bg: #3d546b,
+    button-border: #90caf9,
+    success: #66bb6a,
+  ),
+
+  yellow: (
+    bg: #fff1b8,
+    border: #ffd54f,
+    text: #2b2b2b,
+    button-bg: #fff6d6,
+    button-border: #ffe082,
+    success: #66bb6a,
+  ),
+  red: (
+    bg: #ffe1e6,
+    border: #ff5c7a,
+    text: #2b1b1b,
+    button-bg: #ffd0d8,
+    button-border: #ff7a92,
+    success: #4caf50,
+  ),
+);
+
+.copyText {
+  &-wrapper {
+    // Layout fijo, igual para todos los temas
+    --ct-radius: 8px;
+    --ct-width: fit-content;
+    --ct-padding-y: 6px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    width: var(--ct-width);
+    background: var(--ct-bg);
+    border: 1px solid var(--ct-border);
+    border-radius: var(--ct-radius);
+    padding: var(--ct-padding-y) 6px var(--ct-padding-y) 14px;
+  }
+
+  &-text {
+    font-family: $ct-font-family;
+    font-size: 14px;
+    color: var(--ct-text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &-copyButton {
+    position: relative; // ancla para el texto flotante "Copiado"
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0; // que no se achique si el texto es largo
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--ct-button-border);
+    border-radius: 6px;
+    background: var(--ct-button-bg);
+    cursor: pointer;
+    color: var(--ct-text);
+    transition: border-color 0.15s ease;
+
+    &:hover {
+      border-color: var(--ct-text);
+    }
+
+    &.copied {
+      border-color: var(--ct-success);
+      color: var(--ct-success);
+    }
+  }
+
+  // El icono (copiar/check) hace un pequeño "pop" al cambiar,
+  // para que el cambio se note incluso si no se lee el tooltip.
+  &-icon {
+    display: inline-flex;
+    animation: it-pop 0.25s ease;
+  }
+
+  // Texto flotante "Copiado" que aparece arriba del boton y se
+  // desvanece; no empuja el layout porque es position: absolute.
+  &-tooltip {
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--ct-text);
+    color: #ffffff;
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+    pointer-events: none;
+    animation: ic-fade-up 1.6s ease forwards;
+  }
+}
+
+@keyframes it-pop {
+  0% {
+    transform: scale(0.6);
+  }
+  60% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes it-fade-up {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 4px);
+  }
+  15% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+// ============================================================
+// @each genera las variables CSS por tema. "" + $name evita el
+// error de Sass al interpretar nombres de tema como colores
+// (ej. "black" tambien es un color valido en CSS).
+// ============================================================
+@each $name, $theme in $themes {
+  $theme-name: "" + $name;
+
+  .copyText-wrapper[data-theme="#{$theme-name}"] {
+    --ct-bg: #{map.get($theme, bg)};
+    --ct-border: #{map.get($theme, border)};
+    --ct-text: #{map.get($theme, text)};
+    --ct-button-bg: #{map.get($theme, button-bg)};
+    --ct-button-border: #{map.get($theme, button-border)};
+    --ct-success: #{map.get($theme, success)};
+  }
+}

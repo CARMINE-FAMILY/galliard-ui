@@ -11,6 +11,12 @@ export * from './components/inputs/Textarea/TextAreaGal';
 // BUTTON
 export * from './components/Button/ButtonGal';
 
+// CODEBLOCK
+export * from './components/CodeBlock/CodeBlockGal';
+
+// COPY TEXT
+export * from './components/CopyText/CopyTextGal';
+
 // -- FUNCTIONS
 
 // HOOKS
@@ -39,3 +45,9 @@ export type { TextAreaProps } from './models/Inputs/TextAreaModel';
 
 // MODAL MODEL
 export type { BottomSheetModel } from './models/Modals/BottomSheetModel';
+
+//CODEBLOCK MODEL
+export type {CodeBlockProps,CodeTab,CodeThemeValues,} from './models/CodeBlock/CodeBlockModel';
+
+//COPYTEXT MODEL
+export type {CopyTextProps,CopyTextThemeValues,} from './models/CopyText/CopyTextModel';
