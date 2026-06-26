@@ -1,0 +1,420 @@
+@use "sass:map";
+
+// ============================================================
+// Mapa de temas: cada tema es un sub-mapa con las MISMAS llaves.
+// Si agregas un tema nuevo, copia un bloque y cambia los colores;
+// el @each de abajo lo recoge solo, sin tocar nada más.
+//
+// fade-from / fade-to / button-bg se fusionaron desde el antiguo
+// collapsibleCode.module.scss: ahora cualquier tab de CodeBlock
+// puede ser collapsible y necesita estas 3 variables.
+// ============================================================
+$themes: (
+  black: (
+    bg: #1e1e1e,
+    bg-header: #252528,
+    border: #2d2d2d,
+    text-muted: #9ca3af,
+    text-active: #ffffff,
+    accent: #569cd6,
+    success: #4ade80,
+    fade-from: rgba(30, 30, 30, 0),
+    fade-to: #1e1e1e,
+    button-bg: #252528,
+    keyword: #569cd6,
+    string: #ce9178,
+    comment: #6a9955,
+    function: #dcdcaa,
+    type: #4ec9b0,
+    number: #b5cea8,
+    operator: #d4d4d4,
+    tag: #4ec9b0,
+    attribute: #9cdcfe,
+    punctuation: #808080,
+    variable: #9cdcfe,
+    plain: #d4d4d4,
+  ),
+  light: (
+    bg: #ffffff,
+    bg-header: #f3f3f3,
+    border: #e0e0e0,
+    text-muted: #6b7280,
+    text-active: #111827,
+    accent: #2563eb,
+    success: #16a34a,
+    fade-from: rgba(255, 255, 255, 0),
+    fade-to: #ffffff,
+    button-bg: #f8fafc,
+    keyword: #0000ff,
+    string: #a31515,
+    comment: #008000,
+    function: #795e26,
+    type: #267f99,
+    number: #098658,
+    operator: #383a42,
+    tag: #267f99,
+    attribute: #e45649,
+    punctuation: #383a42,
+    variable: #001080,
+    plain: #383a42,
+  ),
+  dracula: (
+    bg: #282a36,
+    bg-header: #21222c,
+    border: #44475a,
+    text-muted: #6272a4,
+    text-active: #f8f8f2,
+    accent: #bd93f9,
+    success: #50fa7b,
+    fade-from: rgba(40, 42, 54, 0),
+    fade-to: #282a36,
+    button-bg: #21222c,
+    keyword: #ff79c6,
+    string: #f1fa8c,
+    comment: #6272a4,
+    function: #50fa7b,
+    type: #8be9fd,
+    number: #bd93f9,
+    operator: #ff79c6,
+    tag: #ff79c6,
+    attribute: #50fa7b,
+    punctuation: #f8f8f2,
+    variable: #f8f8f2,
+    plain: #f8f8f2,
+  ),
+  orange: (
+    bg: #1e120b,
+    bg-header: #2c1a10,
+    border: #4a2d1b,
+    text-muted: #8e7365,
+    text-active: #fcece3,
+    accent: #ff7a2f,
+    success: #4caf50,
+    fade-from: rgba(30, 18, 11, 0),
+    fade-to: #1e120b,
+    button-bg: #2c1a10,
+    keyword: #ff6f3c,
+    string: #ffd166,
+    comment: #7c6455,
+    function: #ff9f1c,
+    type: #64b5f6,
+    number: #f59e0b,
+    operator: #ff6f3c,
+    tag: #fbbf24,
+    attribute: #81c784,
+    punctuation: #e5e7eb,
+    variable: #ffedd5,
+    plain: #fcece3,
+  ),
+  green: (
+    bg: #18231b,
+    bg-header: #203026,
+    border: #345040,
+    text-muted: #7c9884,
+    text-active: #f4fff7,
+    accent: #4caf50,
+    success: #81c784,
+    fade-from: rgba(24, 35, 27, 0),
+    fade-to: #18231b,
+    button-bg: #203026,
+    keyword: #66bb6a,
+    string: #fff176,
+    comment: #607d66,
+    function: #26a69a,
+    type: #29b6f6,
+    number: #ffb74d,
+    operator: #66bb6a,
+    tag: #26c6da,
+    attribute: #aed581,
+    punctuation: #f4fff7,
+    variable: #dcedc8,
+    plain: #f4fff7,
+  ),
+  solarized-light: (
+    bg: #fdf6e3,
+    bg-header: #eee8d5,
+    border: #d3cbb7,
+    text-muted: #93a1a1,
+    text-active: #073642,
+    accent: #268bd2,
+    success: #859900,
+    fade-from: rgba(253, 246, 227, 0),
+    fade-to: #fdf6e3,
+    button-bg: #eee8d5,
+    keyword: #859900,
+    string: #2aa198,
+    comment: #93a1a1,
+    function: #268bd2,
+    type: #b58900,
+    number: #d33682,
+    operator: #657b83,
+    tag: #268bd2,
+    attribute: #b58900,
+    punctuation: #657b83,
+    variable: #cb4b16,
+    plain: #657b83,
+  ),
+  blue: (
+    bg: #151c26,
+    bg-header: #1d2633,
+    border: #304055,
+    text-muted: #7f93aa,
+    text-active: #f5f9ff,
+    accent: #2196f3,
+    success: #66bb6a,
+    fade-from: rgba(21, 28, 38, 0),
+    fade-to: #151c26,
+    button-bg: #1d2633,
+    keyword: #42a5f5,
+    string: #ffd54f,
+    comment: #6b7c93,
+    function: #29b6f6,
+    type: #64b5f6,
+    number: #ffb74d,
+    operator: #42a5f5,
+    tag: #26c6da,
+    attribute: #81c784,
+    punctuation: #f5f9ff,
+    variable: #d6e4ff,
+    plain: #f5f9ff,
+  ),
+  yellow: (
+    bg: #faeca9,
+    bg-header: #ffe17a,
+    border: #facc15,
+    text-muted: #5a4a1f,
+    text-active: #141414,
+    accent: #f59e0b,
+    success: #22c55e,
+    fade-from: rgba(250, 236, 169, 0),
+    fade-to: #faeca9,
+    button-bg: #ffe17a,
+    keyword: #d97706,
+    string: #fbbf24,
+    comment: #6b5b2a,
+    function: #f59e0b,
+    type: #2563eb,
+    number: #b45309,
+    operator: #d97706,
+    tag: #ca8a04,
+    attribute: #16a34a,
+    punctuation: #141414,
+    variable: #92400e,
+    plain: #141414,
+  ),
+  red: (
+    bg: #261616,
+    bg-header: #311d1d,
+    border: #4b2b2b,
+    text-muted: #a37c7c,
+    text-active: #fff5f5,
+    accent: #f44336,
+    success: #66bb6a,
+    fade-from: rgba(38, 22, 22, 0),
+    fade-to: #261616,
+    button-bg: #311d1d,
+    keyword: #ef5350,
+    string: #ffd54f,
+    comment: #8d6e63,
+    function: #ff8a65,
+    type: #64b5f6,
+    number: #ffb74d,
+    operator: #ef5350,
+    tag: #e57373,
+    attribute: #81c784,
+    punctuation: #fff5f5,
+    variable: #ffcdd2,
+    plain: #fff5f5,
+  ),
+);
+
+.codeBlock {
+  &-wrapper {
+    // Valores que NO cambian entre temas (layout, tamaños, fuentes)
+    --code-font-size: 18px; // De aqui se ve el tamaño del codigo
+    --code-line-height: 1.3;
+    --code-padding: 20px;
+    --code-radius: 10px;
+    --code-font-family: "Fira Code", "Cascadia Code", "Consolas", monospace;
+    //Aqui termina los cambios del codigo
+
+    border: 1px solid var(--code-border);
+    border-radius: var(--code-radius);
+    overflow: hidden;
+
+    &:hover {
+      border-color: var(--code-accent);
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+      transform: translateY(-2px);
+    }
+  }
+
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--code-bg-header);
+    border-bottom: 1px solid var(--code-border);
+    padding: 0 8px;
+    min-height: 36px;
+  }
+
+  &-tabsContainer {
+    display: flex;
+  }
+
+  &-tabButton {
+    padding: 6px 12px;
+    border: none;
+    background: transparent;
+    color: var(--code-text-muted);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    font-size: 14px;
+
+    &.active {
+      background: var(--code-bg);
+      color: var(--code-text-active);
+      border-bottom-color: var(--code-accent);
+    }
+
+    &:hover {
+      border-color: var(--code-accent);
+    }
+  }
+
+  &-copyButton {
+    border: none;
+    background: transparent;
+    color: var(--code-text-muted);
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 4px 6px;
+
+    &.copied {
+      color: var(--code-success);
+    }
+  }
+
+  // Envuelve solo el <pre>: el fade (absolute) se posiciona relativo
+  // a este contenedor, no al wrapper completo (que incluye header/tabs).
+  &-codeWrapper {
+    position: relative;
+  }
+
+  &-codePre {
+    margin: 0;
+    padding: var(--code-padding);
+    overflow-x: auto;
+    font-size: var(--code-font-size);
+    line-height: var(--code-line-height);
+    font-family: var(--code-font-family);
+    background: var(--code-bg);
+  }
+
+  // Solo aparece cuando el tab activo es collapsible y esta colapsado
+  &-fade {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: linear-gradient(var(--code-fade-from), var(--code-fade-to));
+    pointer-events: none; // no bloquea el scroll horizontal del code
+  }
+
+  &-toggleButton {
+    width: 100%;
+    padding: 8px 0;
+    border: none;
+    border-top: 1px solid var(--code-border);
+    background: var(--code-button-bg);
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--code-text-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    &:hover {
+      color: var(--code-accent);
+    }
+  }
+}
+
+.token {
+  &-keyword {
+    color: var(--code-keyword);
+  }
+  &-string {
+    color: var(--code-string);
+  }
+  &-comment {
+    color: var(--code-comment);
+  }
+  &-function {
+    color: var(--code-function);
+  }
+  &-type {
+    color: var(--code-type);
+  }
+  &-number {
+    color: var(--code-number);
+  }
+  &-operator {
+    color: var(--code-operator);
+  }
+  &-tag {
+    color: var(--code-tag);
+  }
+  &-attribute {
+    color: var(--code-attribute);
+  }
+  &-punctuation {
+    color: var(--code-punctuation);
+  }
+  &-variable {
+    color: var(--code-variable);
+  }
+  &-plain {
+    color: var(--code-plain);
+  }
+}
+
+// ============================================================
+// @each recorre cada tema del mapa $themes y solo DEFINE las
+// variables CSS de ese tema (no propiedades visuales directas).
+// Asi, si React inyecta un --code-accent inline en el wrapper,
+// ese inline gana por especificidad sin tocar nada de aqui.
+// ============================================================
+@each $name, $theme in $themes {
+  // "" + $name fuerza a Sass a tratar $name como string, no como color
+  // (esto evita el warning/error porque "black" tambien es un color valido en CSS)
+  $theme-name: "" + $name;
+
+  .codeBlock-wrapper[data-theme="#{$theme-name}"] {
+    --code-bg: #{map.get($theme, bg)};
+    --code-bg-header: #{map.get($theme, bg-header)};
+    --code-border: #{map.get($theme, border)};
+    --code-text-muted: #{map.get($theme, text-muted)};
+    --code-text-active: #{map.get($theme, text-active)};
+    --code-accent: #{map.get($theme, accent)};
+    --code-success: #{map.get($theme, success)};
+    --code-fade-from: #{map.get($theme, fade-from)};
+    --code-fade-to: #{map.get($theme, fade-to)};
+    --code-button-bg: #{map.get($theme, button-bg)};
+    --code-keyword: #{map.get($theme, keyword)};
+    --code-string: #{map.get($theme, string)};
+    --code-comment: #{map.get($theme, comment)};
+    --code-function: #{map.get($theme, function)};
+    --code-type: #{map.get($theme, type)};
+    --code-number: #{map.get($theme, number)};
+    --code-operator: #{map.get($theme, operator)};
+    --code-tag: #{map.get($theme, tag)};
+    --code-attribute: #{map.get($theme, attribute)};
+    --code-punctuation: #{map.get($theme, punctuation)};
+    --code-variable: #{map.get($theme, variable)};
+    --code-plain: #{map.get($theme, plain)};
+  }
+}
