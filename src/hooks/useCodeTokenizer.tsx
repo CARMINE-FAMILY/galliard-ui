@@ -1,3 +1,4 @@
+// Parte esencial para que CodeBlockGal funcione
 import type { Token, TokenType } from "../models/CodeBlock/CodeBlockModel";
 
 // Orden importa: las reglas se evalúan de arriba a abajo, la primera que matchea gana

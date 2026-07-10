@@ -5,7 +5,7 @@ import type {
   CodeThemeValues,
 } from "../../models/CodeBlock/CodeBlockModel";
 import { tokenize } from "../../hooks/useCodeTokenizer";
-import styles from "../../components/CodeBlock/CodeBlockGal.module.scss";
+import styles from "./CodeBlockGal.module.scss";
 
 const DEFAULT_PREVIEW_LINES = 8;
 
@@ -23,7 +23,7 @@ const CSS_VAR_MAP: Record<keyof CodeThemeValues, string> = {
   fadeTo: "--code-fade-to",
   buttonBg: "--code-button-bg",
   keyword: "--code-keyword",
-  string: "--code-string",
+  stringTexts: "--code-stringTexts",
   comment: "--code-comment",
   function: "--code-function",
   type: "--code-type",
@@ -76,7 +76,11 @@ function HighlightedCode({ code }: { code: string }) {
   );
 }
 
-export function CodeBlockGal({ tabs, className }: CodeBlockProps) {
+export function CodeBlockGal({
+  tabs,
+  className,
+  hideHeaderIfSingleTab = false,
+}: CodeBlockProps) {
   const [active, setActive] = useState(0);
   const [copied, setCopied] = useState(false);
   // expansion independiente por tab: cambiar de tab no resetea
@@ -116,6 +120,8 @@ export function CodeBlockGal({ tabs, className }: CodeBlockProps) {
     }
   };
 
+  const showTabsRow = !(hideHeaderIfSingleTab && tabs.length === 1);
+
   return (
     // data-theme pone la base; customStyle (inline) gana donde aplique
     <div
@@ -124,19 +130,21 @@ export function CodeBlockGal({ tabs, className }: CodeBlockProps) {
       style={customStyle}
     >
       <div className={styles["codeBlock-header"]}>
-        <div className={styles["codeBlock-tabsContainer"]}>
-          {tabs.map((tab, i) => (
-            <button
-              key={i}
-              onClick={() => setActive(i)}
-              className={`${styles["codeBlock-tabButton"]} ${
-                active === i ? styles.active : ""
-              }`}
-            >
-              {tab.label}
-            </button>
-          ))}
-        </div>
+        {showTabsRow && (
+          <div className={styles["codeBlock-tabsContainer"]}>
+            {tabs.map((tab, i) => (
+              <button
+                key={i}
+                onClick={() => setActive(i)}
+                className={`${styles["codeBlock-tabButton"]} ${
+                  active === i ? styles.active : ""
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+        )}
 
         <button
           onClick={handleCopy}
