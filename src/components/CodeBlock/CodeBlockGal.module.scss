@@ -22,7 +22,7 @@ $themes: (
     fade-to: #1e1e1e,
     button-bg: #252528,
     keyword: #569cd6,
-    string: #ce9178,
+    stringTexts: #ce9178,
     comment: #6a9955,
     function: #dcdcaa,
     type: #4ec9b0,
@@ -46,7 +46,7 @@ $themes: (
     fade-to: #ffffff,
     button-bg: #f8fafc,
     keyword: #0000ff,
-    string: #a31515,
+    stringTexts: #a31515,
     comment: #008000,
     function: #795e26,
     type: #267f99,
@@ -70,7 +70,7 @@ $themes: (
     fade-to: #282a36,
     button-bg: #21222c,
     keyword: #ff79c6,
-    string: #f1fa8c,
+    stringTexts: #f1fa8c,
     comment: #6272a4,
     function: #50fa7b,
     type: #8be9fd,
@@ -94,7 +94,7 @@ $themes: (
     fade-to: #1e120b,
     button-bg: #2c1a10,
     keyword: #ff6f3c,
-    string: #ffd166,
+    stringTexts: #ffd166,
     comment: #7c6455,
     function: #ff9f1c,
     type: #64b5f6,
@@ -118,7 +118,7 @@ $themes: (
     fade-to: #18231b,
     button-bg: #203026,
     keyword: #66bb6a,
-    string: #fff176,
+    stringTexts: #fff176,
     comment: #607d66,
     function: #26a69a,
     type: #29b6f6,
@@ -142,7 +142,7 @@ $themes: (
     fade-to: #fdf6e3,
     button-bg: #eee8d5,
     keyword: #859900,
-    string: #2aa198,
+    stringTexts: #2aa198,
     comment: #93a1a1,
     function: #268bd2,
     type: #b58900,
@@ -166,7 +166,7 @@ $themes: (
     fade-to: #151c26,
     button-bg: #1d2633,
     keyword: #42a5f5,
-    string: #ffd54f,
+    stringTexts: #ffd54f,
     comment: #6b7c93,
     function: #29b6f6,
     type: #64b5f6,
@@ -190,7 +190,7 @@ $themes: (
     fade-to: #faeca9,
     button-bg: #ffe17a,
     keyword: #d97706,
-    string: #fbbf24,
+    stringTexts: #fbbf24,
     comment: #6b5b2a,
     function: #f59e0b,
     type: #2563eb,
@@ -214,7 +214,7 @@ $themes: (
     fade-to: #261616,
     button-bg: #311d1d,
     keyword: #ef5350,
-    string: #ffd54f,
+    stringTexts: #ffd54f,
     comment: #8d6e63,
     function: #ff8a65,
     type: #64b5f6,
@@ -231,8 +231,8 @@ $themes: (
 .codeBlock {
   &-wrapper {
     // Valores que NO cambian entre temas (layout, tamaños, fuentes)
-    --code-font-size: 18px; // De aqui se ve el tamaño del codigo
-    --code-line-height: 1.3;
+    --code-font-size: 13px; // De aqui se ve el tamaño del codigo
+    --code-line-height: 1.7;
     --code-padding: 20px;
     --code-radius: 10px;
     --code-font-family: "Fira Code", "Cascadia Code", "Consolas", monospace;
@@ -284,11 +284,12 @@ $themes: (
   }
 
   &-copyButton {
+    margin-left: auto; //Mueve de lugar el botón de copiar a la derecha
     border: none;
     background: transparent;
     color: var(--code-text-muted);
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 1.5rem;
     padding: 4px 6px;
 
     &.copied {
@@ -348,7 +349,7 @@ $themes: (
     color: var(--code-keyword);
   }
   &-string {
-    color: var(--code-string);
+    color: var(--code-stringTexts);
   }
   &-comment {
     color: var(--code-comment);
@@ -405,7 +406,7 @@ $themes: (
     --code-fade-to: #{map.get($theme, fade-to)};
     --code-button-bg: #{map.get($theme, button-bg)};
     --code-keyword: #{map.get($theme, keyword)};
-    --code-string: #{map.get($theme, string)};
+    --code-stringTexts: #{map.get($theme, stringTexts)};
     --code-comment: #{map.get($theme, comment)};
     --code-function: #{map.get($theme, function)};
     --code-type: #{map.get($theme, type)};

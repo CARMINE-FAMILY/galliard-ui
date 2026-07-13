@@ -29,4 +29,5 @@ export interface CopyTextProps {
   className?: string;
   theme?: CodeTheme; // este es para que se aplique el color pertinente
   customStyle?: Partial<CopyTextThemeValues>;
+  iconPosition?: "left" | "right";
 }
