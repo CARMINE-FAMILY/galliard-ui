@@ -44,7 +44,7 @@ function buildCustomStyle(
       style[CSS_VAR_MAP[typedKey]] = value;
     }
   }
-  return style as CSSProperties; 
+  return style as CSSProperties;
 }
 
 export function CopyTextGal({
@@ -52,6 +52,7 @@ export function CopyTextGal({
   className,
   theme = "solarized-light",
   customStyle,
+  iconPosition = "right",
 }: CopyTextProps) {
   const [copied, setCopied] = useState(false);
 
@@ -69,26 +70,40 @@ export function CopyTextGal({
     }
   };
 
+  const textNode = <span className={styles["copyText-text"]}>{command}</span>;
+
+  const buttonNode = (
+    <button
+      //funcion para copiar
+      onClick={handleCopy}
+      aria-label="Copiar comando"
+      className={`${styles["copyText-copyButton"]} ${
+        copied ? styles.copied : ""
+      }`}
+    >
+      {copied ? <CheckIcon /> : <CopyIcon />}
+
+      {copied && <span className={styles["copyText-tooltip"]}>Copiado</span>}
+    </button>
+  );
+
   return (
     <div
       className={`${styles["copyText-wrapper"]} ${className ?? ""}`}
       data-theme={theme}
       style={inlineStyle}
     >
-      <span className={styles["copyText-text"]}>{command}</span>
-
-      <button
-        //funcion para copiar
-        onClick={handleCopy}
-        aria-label="Copiar comando"
-        className={`${styles["copyText-copyButton"]} ${
-          copied ? styles.copied : ""
-        }`}
-      >
-        {copied ? <CheckIcon /> : <CopyIcon />}
-
-        {copied && <span className={styles["copyText-tooltip"]}>Copiado</span>}
-      </button>
+      {iconPosition === "left" ? (
+        <>
+          {buttonNode}
+          {textNode}
+        </>
+      ) : (
+        <>
+          {textNode}
+          {buttonNode}
+        </>
+      )}
     </div>
   );
 }

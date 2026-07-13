@@ -4,7 +4,7 @@ import type {
   ComponentPreviewProps,
   PreviewThemeValues,
 } from "../../models/ComponentPreview/ComponentPreviewModel";
-import styles from "../styles/components/componentPreview.module.scss";
+import styles from "./ComponentPreviewGal.module.scss";
 
 const PREVIEW_CSS_VAR_MAP: Record<keyof PreviewThemeValues, string> = {
   bg: "--preview-bg",
