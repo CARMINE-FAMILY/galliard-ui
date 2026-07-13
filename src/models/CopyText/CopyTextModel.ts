@@ -24,13 +24,10 @@ export interface CopyTextThemeValues {
   paddingY: string; // alto del padding vertical del cuadro
 }
 
-// Posicion del boton/icono de copiar respecto al texto
-export type CopyIconPosition = "left" | "right";
-
 export interface CopyTextProps {
   command: string;
   className?: string;
   theme?: CodeTheme; // este es para que se aplique el color pertinente
   customStyle?: Partial<CopyTextThemeValues>;
-  iconPosition?: CopyIconPosition; // default: "right"
+  iconPosition?: "left" | "right";
 }
