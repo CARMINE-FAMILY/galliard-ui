@@ -70,40 +70,29 @@ export function CopyTextGal({
     }
   };
 
-  const textNode = <span className={styles["copyText-text"]}>{command}</span>;
-
-  const buttonNode = (
-    <button
-      //funcion para copiar
-      onClick={handleCopy}
-      aria-label="Copiar comando"
-      className={`${styles["copyText-copyButton"]} ${
-        copied ? styles.copied : ""
-      }`}
-    >
-      {copied ? <CheckIcon /> : <CopyIcon />}
-
-      {copied && <span className={styles["copyText-tooltip"]}>Copiado</span>}
-    </button>
-  );
-
   return (
     <div
       className={`${styles["copyText-wrapper"]} ${className ?? ""}`}
       data-theme={theme}
-      style={inlineStyle}
+      style={{
+        ...inlineStyle,
+        flexDirection: iconPosition === "left" ? "row-reverse" : "row",
+      }}
     >
-      {iconPosition === "left" ? (
-        <>
-          {buttonNode}
-          {textNode}
-        </>
-      ) : (
-        <>
-          {textNode}
-          {buttonNode}
-        </>
-      )}
+      <span className={styles["copyText-text"]}>{command}</span>
+
+      <button
+        //funcion para copiar
+        onClick={handleCopy}
+        aria-label="Copiar comando"
+        className={`${styles["copyText-copyButton"]} ${
+          copied ? styles.copied : ""
+        }`}
+      >
+        {copied ? <CheckIcon /> : <CopyIcon />}
+
+        {copied && <span className={styles["copyText-tooltip"]}>Copiado</span>}
+      </button>
     </div>
   );
 }

@@ -9,7 +9,7 @@ import type {
 // componentPreview.module.scss
 export type PreviewTheme = CodeTheme;
 
-// Variables propias del fondo "Avance" (rayas diagonales).
+// Variables propias del fondo "Vista previa" (rayas diagonales).
 // Se mantienen separadas de CodeThemeValues porque ComponentPreview
 // no muestra codigo en ese tab, solo el componente en vivo.
 export interface PreviewThemeValues {
@@ -27,9 +27,9 @@ export interface PreviewCodeTab {
 
 export interface ComponentPreviewProps {
   title?: string; // ej: "Botón" (opcional, por si ya lo pones afuera)
-  children: ReactNode; // el componente real, montado en vivo en "Avance"
+  children: ReactNode; // el componente real, montado en vivo en "Vista previa"
   codeTabs: PreviewCodeTab[]; // ej: [{label:"HTML",...}, {label:"JSX",...}]
-  previewLabel?: string; // default: "Avance"
+  previewLabel?: string; // default: "Vista previa"
   theme?: PreviewTheme; // tema compartido por el fondo Y los CodeBlock internos
   customTheme?: Partial<PreviewThemeValues>; // override solo del fondo de rayas
   codeCustomTheme?: Partial<CodeThemeValues>; // override solo de los CodeBlock internos
