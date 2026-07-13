@@ -44,7 +44,7 @@ function buildCustomStyle(
       style[CSS_VAR_MAP[typedKey]] = value;
     }
   }
-  return style as CSSProperties; 
+  return style as CSSProperties;
 }
 
 export function CopyTextGal({
@@ -52,6 +52,7 @@ export function CopyTextGal({
   className,
   theme = "solarized-light",
   customStyle,
+  iconPosition = "right",
 }: CopyTextProps) {
   const [copied, setCopied] = useState(false);
 
@@ -73,7 +74,10 @@ export function CopyTextGal({
     <div
       className={`${styles["copyText-wrapper"]} ${className ?? ""}`}
       data-theme={theme}
-      style={inlineStyle}
+      style={{
+        ...inlineStyle,
+        flexDirection: iconPosition === "left" ? "row-reverse" : "row",
+      }}
     >
       <span className={styles["copyText-text"]}>{command}</span>
 

@@ -140,7 +140,7 @@ $themes: (
   // para que el cambio se note incluso si no se lee el tooltip.
   &-icon {
     display: inline-flex;
-    animation: it-pop 0.25s ease;
+    animation: ct-pop 0.25s ease;
   }
 
   // Texto flotante "Copiado" que aparece arriba del boton y se
@@ -157,11 +157,11 @@ $themes: (
     border-radius: 4px;
     white-space: nowrap;
     pointer-events: none;
-    animation: ic-fade-up 1.6s ease forwards;
+    animation: ct-fade-up 1.6s ease forwards;
   }
 }
 
-@keyframes it-pop {
+@keyframes ct-pop {
   0% {
     transform: scale(0.6);
   }
@@ -173,7 +173,7 @@ $themes: (
   }
 }
 
-@keyframes it-fade-up {
+@keyframes ct-fade-up {
   0% {
     opacity: 0;
     transform: translate(-50%, 4px);

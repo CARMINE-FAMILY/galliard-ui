@@ -17,6 +17,9 @@ export * from './components/CodeBlock/CodeBlockGal';
 // COPY TEXT
 export * from './components/CopyText/CopyTextGal';
 
+// COMPONENT PREVIEW
+export * from './components/ComponentPreview/ComponentPreviewGal';
+
 // -- FUNCTIONS
 
 // HOOKS
@@ -51,3 +54,6 @@ export type {CodeBlockProps,CodeTab,CodeThemeValues,} from './models/CodeBlock/C
 
 //COPYTEXT MODEL
 export type {CopyTextProps,CopyTextThemeValues,} from './models/CopyText/CopyTextModel';
+
+//COMPONENTPREVIEW MODEL
+export type {ComponentPreviewProps,PreviewCodeTab,PreviewThemeValues,} from './models/ComponentPreview/ComponentPreviewModel';
