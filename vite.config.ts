@@ -57,9 +57,17 @@ export default defineConfig({
     },
   },
   build: {
+    emptyOutDir: true,
+    copyPublicDir: false,
+    cssCodeSplit: true, // Para que todo el CSS vaya en un solo archivo
+    sourcemap: false,
+    cssMinify: true,
     lib: {
       // El punto de entrada principal de la librería
-      entry: resolve(__dirname, 'src/index.ts'),
+      entry: {
+        index: resolve(__dirname, 'src/index.ts'),
+        actions: resolve(__dirname, 'src/actions/index.ts')
+      },
       name: 'Galliard UI',
       fileName: 'galliard-ui',
       formats: ['es', 'cjs']
@@ -71,7 +79,19 @@ export default defineConfig({
         globals: {
           react: 'React',
           'react-dom': 'ReactDOM',
+          'react/jsx-runtime': 'jsxRuntime'
         },
+        // Esto asegura que los assets se manejen correctamente
+        assetFileNames: (assetInfo) => {
+          const ext = assetInfo.name?.split('.').pop();
+          if (/png|jpe?g|svg|gif|tiff|bmp|ico|webp/i.test(ext || '')) {
+            return 'assets/images/[name].[hash].[ext]';
+          }
+          if (ext === 'css') {
+            return 'styles/[name].[ext]';
+          }
+          return 'assets/[name].[ext]';
+        }
       },
     },
   }
