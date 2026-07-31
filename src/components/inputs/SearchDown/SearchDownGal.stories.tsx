@@ -16,10 +16,10 @@ const meta = {
   },
   // Aquí puedes definir controles manuales si Storybook no los detecta
   argTypes: {
-    bgColor: {control: 'color'},
-    textColor: {control: 'color'},
-    iconsColor: {control: 'color'},
-    useForApi: {control: 'boolean'}
+    bgColor: { control: 'color' },
+    textColor: { control: 'color' },
+    iconsColor: { control: 'color' },
+    useForApi: { control: 'boolean' }
   },
 } satisfies Meta<typeof SearchDownGal>;
 
@@ -29,48 +29,55 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const mockOptionsList: OptionsSearchModel[] = [
-    { 
-        valueOption: 'MID', 
-        text: 'Carril Central', 
-    },
-    { 
-        valueOption: 'TOP', 
-        text: 'Carril Superior', 
-    },
-    { 
-        valueOption: 'JG', 
-        text: 'Jungla', 
-    },
-    { 
-        valueOption: 'IONIA', 
-        text: 'Facción: Jonia', 
-    },
-    { 
-        valueOption: 99, 
-        text: 'Opción Numérica (99)', 
-    }
+  {
+    valueOption: 'MID',
+    text: 'Carril Central',
+  },
+  {
+    valueOption: 'TOP',
+    text: 'Carril Superior',
+  },
+  {
+    valueOption: 'JG',
+    text: 'Jungla',
+  },
+  {
+    valueOption: 'IONIA',
+    text: 'Facción: Jonia',
+  },
+  {
+    valueOption: 99,
+    text: 'Opción Numérica (99)',
+  }
 ];
-
-// 3. LAS HISTORIAS (Variaciones)
 
 // Historia 1: El estado por defecto (sin placeholder o vacío)
 export const WithApi: Story = {
+  render: (args) => {
+    // Aqui puede ir un state
+
+    return (
+      <SearchDownGal 
+        {...args} 
+        searchAction={(e: string | null) => {
+          let data: OptionsSearchModel[] = mockOptionsList.filter(o => 
+            o.text.toLowerCase().includes(e?.toLocaleLowerCase() ?? '')
+          );
+          return data;
+        }}
+      />
+    );
+  },
   args: {
-    label: "Lugar de entrega",
+    label: "Carril",
     value: null,
     seeIcon: true,
     shadow: true,
     border: false,
     seeOptionsIcons: true,
     useForApi: true,
-    customIcon: <img style={{ height: '95%', width: 'auto', display: 'flex', justifyContent: 'center' }} src='https://cdnb.artstation.com/p/assets/images/images/040/288/947/large/foritis-wang-irelia.jpg?1628431072' />,
-    searchAction: (e: string | null) => {
-      let data: OptionsSearchModel[] = mockOptionsList.filter(o => o.text.toLowerCase().includes(e?.toLocaleLowerCase() ?? ''));
-    },
+    customIcon: <img style={{ height: '95%', width: 'auto', display: 'flex', justifyContent: 'center' }} src='https://cdnb.artstation.com/p/assets/images/images/040/288/947/large/foritis-wang-irelia.jpg?1628431072' alt="Irelia" />,
     setValue: (e: OptionsSearchModel | null) => { alert(e?.valueOption) },
-    options: [
-      {}
-    ],
     errorMessage: "Obligatorio",
     iconSize: 20
   }
@@ -79,20 +86,20 @@ export const WithApi: Story = {
 // Historia 2: Con un placeholder específico
 export const WithStatic: Story = {
   args: {
-    placeholder: 'Selecciona tu casa:',
+    placeholder: 'Busca tu casa:',
     value: null,
     setValue: (e: OptionsSearchModel | null) => { alert(e?.valueOption) },
     seeIcon: false,
     seeOptionsIcons: true,
     options: [
-      { valueOption: 1, text: 'Stark'},
-      { valueOption: 2, text: 'Targaryen'},
-      { valueOption: 3, text: 'Tully'},
-      { valueOption: 4, text: 'Lannister'},
-      { valueOption: 5, text: 'Martell'},
-      { valueOption: 6, text: 'Tyrell'},
-      { valueOption: 1, text: 'Arryn'},
-      { valueOption: 1, text: 'Greyjoy'}
+      { valueOption: 1, text: 'Stark' },
+      { valueOption: 2, text: 'Targaryen' },
+      { valueOption: 3, text: 'Tully' },
+      { valueOption: 4, text: 'Lannister' },
+      { valueOption: 5, text: 'Martell' },
+      { valueOption: 6, text: 'Tyrell' },
+      { valueOption: 1, text: 'Arryn' },
+      { valueOption: 1, text: 'Greyjoy' }
     ],
     errorMessage: 'Este campo es obligatorio',
     orientation: "left"

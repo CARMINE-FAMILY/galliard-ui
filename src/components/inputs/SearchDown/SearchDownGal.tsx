@@ -62,9 +62,15 @@ export const SearchDownGal = forwardRef<HTMLInputElement, SearchDownProps>(funct
         setInternalOptions(data);
     }
 
-    const searchCustomList = (e: string): void => {
+    const searchCustomList = async (e: string): Promise<void> => {
         if(searchAction !== undefined ){
-            searchAction(e);
+            try {
+                const res = await searchAction(e);
+                setInternalOptions(res);
+            } catch (error) {
+                console.error("Error al buscar las opciones:", error);
+                setInternalOptions([]);
+            }
         } 
         setSeeOpt(true);
     }
@@ -202,10 +208,7 @@ export const SearchDownGal = forwardRef<HTMLInputElement, SearchDownProps>(funct
                                         e.stopPropagation();
                                         setSeeOpt(false);
                                         setValue(option);
-                                        
-                                        if (!useForApi) {
-                                            setInternalSearch(option.text);
-                                        }
+                                        setInternalSearch(option.text);
                                     }}
                                     className={`${styles.optionElement} ${customOptionClass}`}
                                 >
