@@ -7,7 +7,7 @@ export interface SearchDownProps {
     label?: string;
     value: OptionsSearchModel | null;
     setValue: (value: OptionsSearchModel | null) => void;
-    searchAction?: (value: string | null) => OptionsSearchModel[],
+    searchAction?: (value: string | null) => OptionsSearchModel[] | Promise<OptionsSearchModel[]>,
     useForApi: boolean;
     options: OptionsSearchModel[];
     placeholder?: string;    
