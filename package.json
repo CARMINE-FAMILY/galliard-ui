@@ -1,6 +1,6 @@
 {
   "name": "galliard-ui",
-  "version": "1.0.23",
+  "version": "1.0.25",
   "sideEffects": [
     "**/*.css"
   ],
@@ -55,6 +55,7 @@
   },
   "dependencies": {
     "@iconify/react": "^6.0.2",
+    "galliard-ui": "1.0.23",
     "plop": "^4.0.5"
   },
   "peerDependencies": {

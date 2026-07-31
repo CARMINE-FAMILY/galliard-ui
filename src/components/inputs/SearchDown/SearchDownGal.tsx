@@ -80,11 +80,13 @@ export const SearchDownGal = forwardRef<HTMLInputElement, SearchDownProps>(funct
     });
 
     useEffect(() => {
-        if (internalSearch !== '') {
-            debouncedSearch();
-            setSeeOpt(true);
-        }else{
-            setSeeOpt(false);
+        if (!useForApi) {
+            if (internalSearch !== '') {
+                debouncedSearch();
+                setSeeOpt(true);
+            }else{
+                setSeeOpt(false);
+            }
         }
     }, [internalSearch]);
 
@@ -167,6 +169,7 @@ export const SearchDownGal = forwardRef<HTMLInputElement, SearchDownProps>(funct
                                 // Valida si usar la funcion personalizable o no
                                 if (useForApi) {
                                     debouncedCustomAction(e.target.value.toString());
+                                    setInternalSearch(e.target.value.toString())
                                 }
                                 else if (!useForApi) {
                                     setInternalSearch(e.target.value.toString())
