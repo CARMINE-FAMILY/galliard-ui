@@ -81,7 +81,7 @@ export function BottomSheetGal({
                 setScreenMax(percentTemp * maxHeightPercentPosition);
             }
         }
-    }, [screenHeight, disapearPercent, canDisapear]);
+    }, [screenHeight, disapearPercent, canDisapear, isOpen]);
 
     // Desactiva el scroll del cuerpo cuando el panel está abierto
     useEffect(() => {

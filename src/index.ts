@@ -4,6 +4,7 @@
 export * from './components/inputs/InputText/InputTextGal';
 export * from './components/inputs/CheckBox/CheckBoxGal';
 export * from './components/inputs/Dropdown/DropDownGal';
+export * from './components/inputs/SearchDown/SearchDownGal';
 export * from './components/inputs/InputFile/InputFileGal';
 export * from './components/inputs/InputRadio/InputRadioGal';
 export * from './components/inputs/Textarea/TextAreaGal';
@@ -41,6 +42,7 @@ export type { NameCategory, NameAttributesCategory, AcceptProp } from './models/
 export type { ValidateProps } from './models/Hooks/ValidateModel';
 export type { CheckProps } from './models/Inputs/CheckModel';
 export type { DropDownProps, OptionsDropModel } from './models/Inputs/DropDownModel';
+export type { SearchDownProps } from './models/Inputs/SearchDownModel';
 export type { InputFileProps } from './models/Inputs/InputFileModel';
 export type { InputProps } from './models/Inputs/InputModel';
 export type { RadioProps } from './models/Inputs/InputRadioModel';
