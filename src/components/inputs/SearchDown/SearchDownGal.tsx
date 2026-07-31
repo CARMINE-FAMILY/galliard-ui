@@ -62,8 +62,15 @@ export const SearchDownGal = forwardRef<HTMLInputElement, SearchDownProps>(funct
         setInternalOptions(data);
     }
 
+    const searchCustomList = (e: string): void => {
+        if(searchAction !== undefined ){
+            searchAction(e);
+        } 
+        setSeeOpt(true);
+    }
+
     const debouncedSearch = useDebounceCallback(searchInStaticList, .5);
-    const debouncedCustomAction = useDebounceCallback(searchAction !== undefined ? searchAction : ()=>{}, .5);
+    const debouncedCustomAction = useDebounceCallback(searchCustomList, .5);
 
     const defaultValue: OptionsSearchModel = { valueOption: null, text: placeholder ?? "Escribe para buscar" };
 
