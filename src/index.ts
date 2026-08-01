@@ -26,6 +26,7 @@ export * from './components/ComponentPreview/ComponentPreviewGal';
 // HOOKS
 export * from './hooks/useOnClickOutside';
 export * from './hooks/useValidateForms';
+export * from './hooks/useDebouncer';
 
 // MODALS
 export * from './components/modals/BottomSheet/BottomSheetGal';
