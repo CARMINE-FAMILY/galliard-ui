@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import type { ValidateProps } from "../models/Hooks/ValidateModel";
 import { convertToUnix, unixToDateTime } from "../funtions/UnixActions";
 
-export function useValidateForms(validations: ValidateProps[]): boolean {
+export function useValidateForms(): {ApplyValidate: (validations: ValidateProps[]) => boolean} {
     let flag: boolean = true;
 
     //#region Funcionmes generales
@@ -234,219 +234,224 @@ export function useValidateForms(validations: ValidateProps[]): boolean {
     }, [messageError]);
 
     //#endregion
-    try {
+    
+    const ApplyValidate = (validations: ValidateProps[]): boolean => {
+        try {
 
-        validations.forEach(toValidate => {
+            validations.forEach(toValidate => {
 
-            if (!isNotNull(
-                toValidate.value,
-                toValidate.canBeNull,
-                toValidate.nameInput,
-                toValidate.setError
-            )) return;
+                if (!isNotNull(
+                    toValidate.value,
+                    toValidate.canBeNull,
+                    toValidate.nameInput,
+                    toValidate.setError
+                )) return;
 
-            switch (toValidate.typeInput) {
+                switch (toValidate.typeInput) {
 
-                // --- GRUPO 1: TEXTO ---
-                case 'text':
+                    // --- GRUPO 1: TEXTO ---
+                    case 'text':
 
-                    if ((typeof toValidate.minLength === 'number' && toValidate.minLength > 0) && typeof toValidate.value === 'string') {
-                        if (!valMin(
-                            toValidate.value,
-                            toValidate.minLength,
-                            toValidate.nameInput,
-                            toValidate.setError
-                        )) return;
-                    }
+                        if ((typeof toValidate.minLength === 'number' && toValidate.minLength > 0) && typeof toValidate.value === 'string') {
+                            if (!valMin(
+                                toValidate.value,
+                                toValidate.minLength,
+                                toValidate.nameInput,
+                                toValidate.setError
+                            )) return;
+                        }
 
-                    if ((typeof toValidate.maxLength === 'number' && toValidate.maxLength > 0) && typeof toValidate.value === 'string') {
-                        if (!valMax(
-                            toValidate.value,
-                            toValidate.maxLength,
-                            toValidate.nameInput,
-                            toValidate.setError
-                        )) return;
-                    }
+                        if ((typeof toValidate.maxLength === 'number' && toValidate.maxLength > 0) && typeof toValidate.value === 'string') {
+                            if (!valMax(
+                                toValidate.value,
+                                toValidate.maxLength,
+                                toValidate.nameInput,
+                                toValidate.setError
+                            )) return;
+                        }
 
-                    if (typeof toValidate.needBeEqualTo === 'string' && typeof toValidate.value === 'string') {
-                        if (!isEqual(
-                            toValidate.value,
-                            toValidate.needBeEqualTo,
-                            toValidate.nameInput,
-                            toValidate.setError
-                        )) return;
-                    }
+                        if (typeof toValidate.needBeEqualTo === 'string' && typeof toValidate.value === 'string') {
+                            if (!isEqual(
+                                toValidate.value,
+                                toValidate.needBeEqualTo,
+                                toValidate.nameInput,
+                                toValidate.setError
+                            )) return;
+                        }
 
-                    if (typeof toValidate.regex === 'string' && typeof toValidate.value === 'string') {
-                        if (!validateRegex(
-                            toValidate.value,
-                            toValidate.regex,
-                            toValidate.nameInput,
-                            toValidate.setError
-                        )) return;
-                    }
+                        if (typeof toValidate.regex === 'string' && typeof toValidate.value === 'string') {
+                            if (!validateRegex(
+                                toValidate.value,
+                                toValidate.regex,
+                                toValidate.nameInput,
+                                toValidate.setError
+                            )) return;
+                        }
 
-                    break;
+                        break;
 
-                case 'email':
+                    case 'email':
 
-                    if (typeof toValidate.value === 'string') {
-                        if (!validateEmail(
-                            toValidate.value,
-                            toValidate.nameInput,
-                            toValidate.setError
-                        )) return;
-                    }
+                        if (typeof toValidate.value === 'string') {
+                            if (!validateEmail(
+                                toValidate.value,
+                                toValidate.nameInput,
+                                toValidate.setError
+                            )) return;
+                        }
 
-                    break;
+                        break;
 
-                case 'phone':
+                    case 'phone':
 
-                    if (typeof toValidate.value === 'string') {
-                        if (!validatePhone(
-                            toValidate.value,
-                            toValidate.nameInput,
-                            toValidate.setError
-                        )) return;
-                    }
+                        if (typeof toValidate.value === 'string') {
+                            if (!validatePhone(
+                                toValidate.value,
+                                toValidate.nameInput,
+                                toValidate.setError
+                            )) return;
+                        }
 
-                    break;
+                        break;
 
-                case 'url':
+                    case 'url':
 
-                    if (typeof toValidate.value === 'string') {
-                        if (!validateUrl(
-                            toValidate.value,
-                            toValidate.nameInput,
-                            toValidate.setError
-                        )) return;
-                    }
+                        if (typeof toValidate.value === 'string') {
+                            if (!validateUrl(
+                                toValidate.value,
+                                toValidate.nameInput,
+                                toValidate.setError
+                            )) return;
+                        }
 
-                    break;
+                        break;
 
-                case 'pass':
+                    case 'pass':
 
-                    if (typeof toValidate.value === 'string') {
-                        if (!validatePass(
-                            toValidate.value,
-                            toValidate.nameInput,
-                            toValidate.setError
-                        )) return;
-                    }
+                        if (typeof toValidate.value === 'string') {
+                            if (!validatePass(
+                                toValidate.value,
+                                toValidate.nameInput,
+                                toValidate.setError
+                            )) return;
+                        }
 
-                    break;
+                        break;
 
-                // --- GRUPO 2: NÚMEROS ---
-                case 'num':
+                    // --- GRUPO 2: NÚMEROS ---
+                    case 'num':
 
-                    if (!validateIsNumber(
-                        toValidate.value,
-                        toValidate.nameInput,
-                        toValidate.setError
-                    )) return;
-
-                    if ((typeof toValidate.min === 'number' && toValidate.min > 0) && typeof toValidate.value === 'number') {
-                        if (!validateMinNum(
-                            toValidate.value,
-                            toValidate.min,
-                            toValidate.nameInput,
-                            toValidate.setError
-                        )) return;
-                    }
-
-                    if ((typeof toValidate.max === 'number' && toValidate.max > 0) && typeof toValidate.value === 'number') {
-                        if (!validateMaxNum(
-                            toValidate.value,
-                            toValidate.max,
-                            toValidate.nameInput,
-                            toValidate.setError
-                        )) return;
-                    }
-
-                    if (toValidate.isInteger === true && typeof toValidate.value === 'number') {
-                        if (!validateIsInteger(
+                        if (!validateIsNumber(
                             toValidate.value,
                             toValidate.nameInput,
                             toValidate.setError
                         )) return;
-                    }
 
-                    if ((typeof toValidate.needBeEqualTo === 'number' && toValidate.needBeEqualTo > 0) && typeof toValidate.value === 'number') {
-                        if (!validateBeEqualNumber(
-                            toValidate.value,
-                            toValidate.needBeEqualTo,
-                            toValidate.nameInput,
-                            toValidate.setError
-                        )) return;
-                    }
+                        if ((typeof toValidate.min === 'number' && toValidate.min > 0) && typeof toValidate.value === 'number') {
+                            if (!validateMinNum(
+                                toValidate.value,
+                                toValidate.min,
+                                toValidate.nameInput,
+                                toValidate.setError
+                            )) return;
+                        }
 
-                    break;
+                        if ((typeof toValidate.max === 'number' && toValidate.max > 0) && typeof toValidate.value === 'number') {
+                            if (!validateMaxNum(
+                                toValidate.value,
+                                toValidate.max,
+                                toValidate.nameInput,
+                                toValidate.setError
+                            )) return;
+                        }
 
-                // --- GRUPO 3: BOOLEANOS --
-                case 'bool':
-                    if (toValidate.mustBeTrue === true && toValidate.value !== true) {
-                        flag = false;
-                        toValidate.setError?.(messageError(toValidate.nameInput, 'debe estar seleccionado'));
+                        if (toValidate.isInteger === true && typeof toValidate.value === 'number') {
+                            if (!validateIsInteger(
+                                toValidate.value,
+                                toValidate.nameInput,
+                                toValidate.setError
+                            )) return;
+                        }
+
+                        if ((typeof toValidate.needBeEqualTo === 'number' && toValidate.needBeEqualTo > 0) && typeof toValidate.value === 'number') {
+                            if (!validateBeEqualNumber(
+                                toValidate.value,
+                                toValidate.needBeEqualTo,
+                                toValidate.nameInput,
+                                toValidate.setError
+                            )) return;
+                        }
+
+                        break;
+
+                    // --- GRUPO 3: BOOLEANOS --
+                    case 'bool':
+                        if (toValidate.mustBeTrue === true && toValidate.value !== true) {
+                            flag = false;
+                            toValidate.setError?.(messageError(toValidate.nameInput, 'debe estar seleccionado'));
+                            return;
+                        }
+                        break;
+
+                    // --- GRUPO 4: FECHAS Y TIEMPO ---
+                    case 'date':
+                    case 'date-time':
+                        let dateN: Date | string | number;
+                        let min: number;
+                        let max: number;
+
+                        if (typeof toValidate.value === 'number' && toValidate.value.toString().length === 10) {
+                            dateN = toValidate.value;
+                        } else if (toValidate.value instanceof Date || typeof toValidate.value === 'string') {
+                            dateN = convertToUnix(toValidate.value);
+                        } else {
+                            throw new Error("Formato de fecha inválido");
+                        }
+
+                        if (toValidate.min && toValidate.min instanceof Date) {
+                            min = convertToUnix(toValidate.min);
+                        } else {
+                            throw new Error("La propiedad 'min' tiene un formato de fecha inválido o no existe");
+                        }
+
+                        if (toValidate.max && toValidate.max instanceof Date) {
+                            max = convertToUnix(toValidate.max);
+                        } else {
+                            throw new Error("La propiedad 'max' tiene un formato de fecha inválido o no existe");
+                        }
+
+                        if (dateN < min) {
+                            flag = false;
+                            toValidate.setError?.(messageError(toValidate.nameInput, 'la fecha no puede ser menor que ' + unixToDateTime(min)));
+                            return;
+                        }
+
+                        if (dateN > max) {
+                            flag = false;
+                            toValidate.setError?.(messageError(toValidate.nameInput, 'la fecha no puede ser mayor que ' + unixToDateTime(max)));
+                            return;
+                        }
+
+                        break;
+
+                    // --- GRUPO 5: DATOS GENÉRICOS ---
+                    case 'time':
+                    case 'data':
                         return;
-                    }
-                    break;
 
-                // --- GRUPO 4: FECHAS Y TIEMPO ---
-                case 'date':
-                case 'date-time':
-                    let dateN: Date | string | number;
-                    let min: number;
-                    let max: number;
+                    default:
+                        console.warn("Tipo de validacion no reconocida");
+                        break;
+                }
+            });
 
-                    if (typeof toValidate.value === 'number' && toValidate.value.toString().length === 10) {
-                        dateN = toValidate.value;
-                    } else if (toValidate.value instanceof Date || typeof toValidate.value === 'string') {
-                        dateN = convertToUnix(toValidate.value);
-                    } else {
-                        throw new Error("Formato de fecha inválido");
-                    }
-
-                    if (toValidate.min && toValidate.min instanceof Date) {
-                        min = convertToUnix(toValidate.min);
-                    } else {
-                        throw new Error("La propiedad 'min' tiene un formato de fecha inválido o no existe");
-                    }
-
-                    if (toValidate.max && toValidate.max instanceof Date) {
-                        max = convertToUnix(toValidate.max);
-                    } else {
-                        throw new Error("La propiedad 'max' tiene un formato de fecha inválido o no existe");
-                    }
-
-                    if (dateN < min) {
-                        flag = false;
-                        toValidate.setError?.(messageError(toValidate.nameInput, 'la fecha no puede ser menor que ' + unixToDateTime(min)));
-                        return;
-                    }
-
-                    if (dateN > max) {
-                        flag = false;
-                        toValidate.setError?.(messageError(toValidate.nameInput, 'la fecha no puede ser mayor que ' + unixToDateTime(max)));
-                        return;
-                    }
-
-                    break;
-
-                // --- GRUPO 5: DATOS GENÉRICOS ---
-                case 'time':
-                case 'data':
-                    return;
-
-                default:
-                    console.warn("Tipo de validacion no reconocida");
-                    break;
-            }
-        });
-
-        return flag;
-    } catch (error) {
-        const message = (error as Error).message;
-        console.error(`Error: ${message}`);
-        throw error;
+            return flag;
+        } catch (error) {
+            const message = (error as Error).message;
+            console.error(`Error: ${message}`);
+            throw error;
+        }
     }
+
+    return { ApplyValidate };
 }
