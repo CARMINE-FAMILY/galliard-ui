@@ -6,7 +6,7 @@
 **Galliard UI** es una librería de componentes React moderna, construida con TypeScript y Sass, diseñada para ser ligera, accesible y fácil de integrar, y tambien altamente personalizable para adecuarse a cada proyecto.
 
 ## DOCS
-[**Explorar Galliard UI**](https://galliard-ui-docs.vercel.app/)
+[**Explorar Galliard UI**](https://galliard-docs.vercel.app/)
 
 ## 🚀 Instalación
 
