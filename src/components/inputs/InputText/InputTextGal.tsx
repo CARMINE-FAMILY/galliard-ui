@@ -16,6 +16,7 @@ export const InputTextGal = forwardRef<HTMLInputElement, InputProps>(function In
         font,
         fontLabel,
         labelColor,
+        blockSpecials = false,
 
         rounded,
         width,
@@ -53,6 +54,14 @@ export const InputTextGal = forwardRef<HTMLInputElement, InputProps>(function In
     const getRounded: number = useMemo(() => {
         return getRoundedValue(rounded ?? "full");
     }, [rounded]);
+
+    const blockSpecialChars = (e: React.KeyboardEvent<HTMLInputElement>): void => {
+        if (typeInput === "number" && blockSpecials === true) {
+            if (["e", "E", "+", "-"].includes(e.key)) {
+                e.preventDefault();
+            }
+        }
+    };
 
     return (
         <div
@@ -105,20 +114,21 @@ export const InputTextGal = forwardRef<HTMLInputElement, InputProps>(function In
                     <input
                         ref={ref}
                         className={`${styles.inputElement} ${customInputClass}`}
-                        style={{ fontSize: textSize, color: textColor, fontFamily: font}}
+                        style={{ fontSize: textSize, color: textColor, fontFamily: font }}
                         type={typeInput === 'password' && seePass ? 'text' : typeInput}
                         placeholder={placeholder}
                         value={value}
                         onChange={(e) => setValue?.(e.target.value)}
+                        onKeyDown={blockSpecialChars}
                         {...args}
                     />
 
                     {typeInput === 'password' &&
                         <Icon
-                            onClick={()=>setSeePass(!seePass)}
+                            onClick={() => setSeePass(!seePass)}
                             icon={seePass ? "fluent:eye-20-filled" : "fluent:eye-hide-20-filled"}
                             className={`${styles.icon}`}
-                            style={{ color: iconColorPass, fontSize: iconSizePass, marginRight: 10, cursor: typeInput == 'password' ? 'pointer': 'default'  }}
+                            style={{ color: iconColorPass, fontSize: iconSizePass, marginRight: 10, cursor: typeInput == 'password' ? 'pointer' : 'default' }}
                         />
                     }
 
@@ -127,7 +137,7 @@ export const InputTextGal = forwardRef<HTMLInputElement, InputProps>(function In
                         <Icon
                             icon={iconRight ?? "mi:user"}
                             className={`${styles.icon} ${customIconRClass}`}
-                            style={{ color: iconColorR, fontSize: iconSizeR}}
+                            style={{ color: iconColorR, fontSize: iconSizeR }}
                         />
                         :
                         <div className={`${styles.containerCustomIcon} ${customIconRClass}`}>

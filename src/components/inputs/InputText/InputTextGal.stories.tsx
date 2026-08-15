@@ -15,6 +15,12 @@ const meta = {
   // Aquí puedes definir controles manuales si Storybook no los detecta
   argTypes: {
     placeholder: { control: 'text' },
+    bgColor: {control: 'color'},
+    iconColorR: {control: 'color'},
+    iconColorL: {control: 'color'},
+    textColor: {control: 'color'},
+    blockSpecials: {control: 'boolean'},
+    typeInput: {control: 'select', options: ['text', 'email', 'password', 'url', 'tel', 'number', 'date']}
   },
 } satisfies Meta<typeof InputTextGal>;
 
@@ -29,7 +35,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     customContainerClass: 'conta',
-    label: "Usuario:"
+    label: "Usuario:",
   },
 };
 
@@ -45,11 +51,5 @@ export const ConPlaceholder: Story = {
     HorV: 'horizontal',
     typeInput: 'password',
     args: {}
-  },
-  argTypes: {
-    bgColor: {control: 'color'},
-    iconColorR: {control: 'color'},
-    iconColorL: {control: 'color'},
-    textColor: {control: 'color'}
   }
 };

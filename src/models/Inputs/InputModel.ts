@@ -34,6 +34,7 @@ export interface InputProps {
     labelColor?: string;
     bgColor?: string;
     HorV?: "horizontal" | "vertical";
+    blockSpecials?: boolean;
 
     // Clases
     customContainerClass?: string;
