@@ -1,6 +1,6 @@
 import type React from "react";
 
-interface PropsOptions{
+export interface PropsOptions{
     value: string | number; 
     label: string; 
     seeIcon: boolean; 
