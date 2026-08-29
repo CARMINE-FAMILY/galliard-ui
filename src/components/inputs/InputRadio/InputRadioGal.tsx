@@ -12,6 +12,7 @@ export const InputRadioGal = forwardRef<HTMLInputElement, RadioProps>(function I
         errorMessage,
         textSize,
         textColor,
+        value,
         setValue,
         name,
         font,
@@ -81,6 +82,7 @@ export const InputRadioGal = forwardRef<HTMLInputElement, RadioProps>(function I
                             <div key={groupId + option.value} className={styles.containerRadio}>
                                 <input
                                     id={uniqueId}
+                                    checked={value === option.value}
                                     className={`${styles.inputElement} ${customInputClass}`}
                                     style={{ fontSize: textSize, color: textColor }}
                                     type="radio"

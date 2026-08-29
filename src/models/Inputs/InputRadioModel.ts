@@ -14,7 +14,8 @@ export interface RadioProps{
     label: string;    
     name: string;
     options: PropsOptions[];
-    setValue: (value: string) => void;
+    value: string | null;
+    setValue: (value: string ) => void;
     textSize?: number | string;
     textColor?: string;
     labelSize?: number | string;
