@@ -3,8 +3,6 @@ import type { ValidateProps } from "../models/Hooks/ValidateModel";
 import { convertToUnix, unixToDateTime } from "../funtions/UnixActions";
 
 export function useValidateForms(): {ApplyValidate: (validations: ValidateProps[]) => boolean} {
-    let flag: boolean = true;
-
     //#region Funcionmes generales
 
     const messageError = useCallback((
@@ -26,7 +24,6 @@ export function useValidateForms(): {ApplyValidate: (validations: ValidateProps[
     ): boolean => {
         if (canBeNull !== true) {
             if (val === null || val === undefined || (typeof val === 'string' && val.trim() === '')) {
-                flag = false;
                 setError?.(messageError(nameInput, "es obligatorio"));
                 return false;
             }
@@ -46,7 +43,6 @@ export function useValidateForms(): {ApplyValidate: (validations: ValidateProps[
         setError?: (error: string) => void
     ): boolean => {
         if (val.length < leng) {
-            flag = false;
             setError?.(messageError(nameInput, "debe tener mínimo " + leng.toString() + " caracteres"));
             return false;
         }
@@ -60,7 +56,6 @@ export function useValidateForms(): {ApplyValidate: (validations: ValidateProps[
         setError?: (error: string) => void
     ): boolean => {
         if (val.length > leng) {
-            flag = false;
             setError?.(messageError(nameInput, "debe tener máximo " + leng.toString() + " caracteres"));
             return false;
         }
@@ -74,7 +69,6 @@ export function useValidateForms(): {ApplyValidate: (validations: ValidateProps[
         setError?: (error: string) => void
     ): boolean => {
         if (val === wordEqual) {
-            flag = false;
             setError?.(messageError(nameInput, "debe ser igual a: " + wordEqual));
             return false;
         }
@@ -90,7 +84,6 @@ export function useValidateForms(): {ApplyValidate: (validations: ValidateProps[
         const isValid = regex.test(val);
 
         if (!isValid) {
-            flag = false;
             setError?.(messageError(nameInput, 'tiene un formato inválido'));
             return false;
         }
@@ -106,7 +99,6 @@ export function useValidateForms(): {ApplyValidate: (validations: ValidateProps[
         const isValid = emailRegex.test(val);
 
         if (!isValid) {
-            flag = false;
             setError?.(messageError(nameInput, 'no es un correo electrónico válido'));
             return false;
         }
@@ -122,7 +114,6 @@ export function useValidateForms(): {ApplyValidate: (validations: ValidateProps[
         const isValid = phoneRegex.test(val);
 
         if (!isValid) {
-            flag = false;
             setError?.(messageError(nameInput, 'no es un número de teléfono válido'));
             return false;
         }
@@ -138,7 +129,6 @@ export function useValidateForms(): {ApplyValidate: (validations: ValidateProps[
         const isValid = urlRegex.test(val);
 
         if (!isValid) {
-            flag = false;
             setError?.(messageError(nameInput, 'no es una URL válida'));
             return false;
         }
@@ -154,7 +144,6 @@ export function useValidateForms(): {ApplyValidate: (validations: ValidateProps[
         const isValid = passRegex.test(val);
 
         if (!isValid) {
-            flag = false;
             setError?.(messageError(nameInput, 'debe tener al menos 8 caracteres, un número y un símbolo'));
             return false;
         }
@@ -170,8 +159,7 @@ export function useValidateForms(): {ApplyValidate: (validations: ValidateProps[
         nameInput?: string,
         setError?: (error: string) => void
     ): boolean => {
-        if (typeof val === 'number') {
-            flag = false;
+        if (typeof val !== 'number') {
             setError?.(messageError(nameInput, 'debe ser un número'));
             return false;
         }
@@ -185,7 +173,6 @@ export function useValidateForms(): {ApplyValidate: (validations: ValidateProps[
         setError?: (error: string) => void
     ): boolean => {
         if (val < min) {
-            flag = false;
             setError?.(messageError(nameInput, 'debe ser mayor a ' + min.toString()));
             return false;
         }
@@ -199,7 +186,6 @@ export function useValidateForms(): {ApplyValidate: (validations: ValidateProps[
         setError?: (error: string) => void
     ): boolean => {
         if (val > max) {
-            flag = false;
             setError?.(messageError(nameInput, 'debe ser menor a ' + max.toString()));
             return false;
         }
@@ -212,7 +198,6 @@ export function useValidateForms(): {ApplyValidate: (validations: ValidateProps[
         setError?: (error: string) => void
     ): boolean => {
         if (!Number.isInteger(val)) {
-            flag = false;
             setError?.(messageError(nameInput, 'debe ser un número entero (sin decimales)'));
             return false;
         }
@@ -226,7 +211,6 @@ export function useValidateForms(): {ApplyValidate: (validations: ValidateProps[
         setError?: (error: string) => void
     ): boolean => {
         if (toCompare === val) {
-            flag = false;
             setError?.(messageError(nameInput, 'debe ser igual a ' + toCompare.toString()));
             return false;
         }
@@ -236,6 +220,8 @@ export function useValidateForms(): {ApplyValidate: (validations: ValidateProps[
     //#endregion
     
     const ApplyValidate = (validations: ValidateProps[]): boolean => {
+        let flag: boolean = true;
+
         try {
 
             validations.forEach(toValidate => {
@@ -245,7 +231,10 @@ export function useValidateForms(): {ApplyValidate: (validations: ValidateProps[
                     toValidate.canBeNull,
                     toValidate.nameInput,
                     toValidate.setError
-                )) return;
+                )) {
+                    flag = false; 
+                    return;
+                }
 
                 switch (toValidate.typeInput) {
 
@@ -258,7 +247,10 @@ export function useValidateForms(): {ApplyValidate: (validations: ValidateProps[
                                 toValidate.minLength,
                                 toValidate.nameInput,
                                 toValidate.setError
-                            )) return;
+                            )) {
+                                flag = false;
+                                return;
+                            }
                         }
 
                         if ((typeof toValidate.maxLength === 'number' && toValidate.maxLength > 0) && typeof toValidate.value === 'string') {
@@ -267,7 +259,10 @@ export function useValidateForms(): {ApplyValidate: (validations: ValidateProps[
                                 toValidate.maxLength,
                                 toValidate.nameInput,
                                 toValidate.setError
-                            )) return;
+                            )) {
+                                flag = false;
+                                return;
+                            }
                         }
 
                         if (typeof toValidate.needBeEqualTo === 'string' && typeof toValidate.value === 'string') {
@@ -276,7 +271,10 @@ export function useValidateForms(): {ApplyValidate: (validations: ValidateProps[
                                 toValidate.needBeEqualTo,
                                 toValidate.nameInput,
                                 toValidate.setError
-                            )) return;
+                            )) {
+                                flag = false;
+                                return;
+                            }
                         }
 
                         if (typeof toValidate.regex === 'string' && typeof toValidate.value === 'string') {
@@ -285,11 +283,15 @@ export function useValidateForms(): {ApplyValidate: (validations: ValidateProps[
                                 toValidate.regex,
                                 toValidate.nameInput,
                                 toValidate.setError
-                            )) return;
+                            )) {
+                                flag = false;
+                                return;
+                            }
                         }
 
                         break;
 
+                    // --- GRUPO 2: EMAIL ---
                     case 'email':
 
                         if (typeof toValidate.value === 'string') {
@@ -297,11 +299,15 @@ export function useValidateForms(): {ApplyValidate: (validations: ValidateProps[
                                 toValidate.value,
                                 toValidate.nameInput,
                                 toValidate.setError
-                            )) return;
+                            )) {
+                                flag = false;
+                                return;
+                            }
                         }
 
                         break;
 
+                    // --- GRUPO 3: PHONE ---
                     case 'phone':
 
                         if (typeof toValidate.value === 'string') {
@@ -309,11 +315,15 @@ export function useValidateForms(): {ApplyValidate: (validations: ValidateProps[
                                 toValidate.value,
                                 toValidate.nameInput,
                                 toValidate.setError
-                            )) return;
+                            )) {
+                                flag = false;
+                                return;
+                            }
                         }
 
                         break;
 
+                    // --- GRUPO 4: URL ---
                     case 'url':
 
                         if (typeof toValidate.value === 'string') {
@@ -321,11 +331,15 @@ export function useValidateForms(): {ApplyValidate: (validations: ValidateProps[
                                 toValidate.value,
                                 toValidate.nameInput,
                                 toValidate.setError
-                            )) return;
+                            )) {
+                                flag = false;
+                                return;
+                            }
                         }
 
                         break;
 
+                    // --- GRUPO 5: PASSWORD ---
                     case 'pass':
 
                         if (typeof toValidate.value === 'string') {
@@ -333,19 +347,25 @@ export function useValidateForms(): {ApplyValidate: (validations: ValidateProps[
                                 toValidate.value,
                                 toValidate.nameInput,
                                 toValidate.setError
-                            )) return;
+                            )) {
+                                flag = false;
+                                return;
+                            }
                         }
 
                         break;
 
-                    // --- GRUPO 2: NÚMEROS ---
+                    // --- GRUPO 6: NÚMEROS ---
                     case 'num':
 
                         if (!validateIsNumber(
                             toValidate.value,
                             toValidate.nameInput,
                             toValidate.setError
-                        )) return;
+                        )) {
+                            flag = false;
+                            return;
+                        }
 
                         if ((typeof toValidate.min === 'number' && toValidate.min > 0) && typeof toValidate.value === 'number') {
                             if (!validateMinNum(
@@ -353,7 +373,10 @@ export function useValidateForms(): {ApplyValidate: (validations: ValidateProps[
                                 toValidate.min,
                                 toValidate.nameInput,
                                 toValidate.setError
-                            )) return;
+                            )) {
+                                flag = false;
+                                return;
+                            }
                         }
 
                         if ((typeof toValidate.max === 'number' && toValidate.max > 0) && typeof toValidate.value === 'number') {
@@ -362,7 +385,10 @@ export function useValidateForms(): {ApplyValidate: (validations: ValidateProps[
                                 toValidate.max,
                                 toValidate.nameInput,
                                 toValidate.setError
-                            )) return;
+                            )) {
+                                flag = false;
+                                return;
+                            }
                         }
 
                         if (toValidate.isInteger === true && typeof toValidate.value === 'number') {
@@ -370,7 +396,10 @@ export function useValidateForms(): {ApplyValidate: (validations: ValidateProps[
                                 toValidate.value,
                                 toValidate.nameInput,
                                 toValidate.setError
-                            )) return;
+                            )) {
+                                flag = false;
+                                return;
+                            }
                         }
 
                         if ((typeof toValidate.needBeEqualTo === 'number' && toValidate.needBeEqualTo > 0) && typeof toValidate.value === 'number') {
@@ -379,12 +408,15 @@ export function useValidateForms(): {ApplyValidate: (validations: ValidateProps[
                                 toValidate.needBeEqualTo,
                                 toValidate.nameInput,
                                 toValidate.setError
-                            )) return;
+                            )) {
+                                flag = false;
+                                return;
+                            }
                         }
 
                         break;
 
-                    // --- GRUPO 3: BOOLEANOS --
+                    // --- GRUPO 7: BOOLEANOS --
                     case 'bool':
                         if (toValidate.mustBeTrue === true && toValidate.value !== true) {
                             flag = false;
@@ -393,55 +425,74 @@ export function useValidateForms(): {ApplyValidate: (validations: ValidateProps[
                         }
                         break;
 
-                    // --- GRUPO 4: FECHAS Y TIEMPO ---
+                    // --- GRUPO 8: FECHAS Y TIEMPO ---
                     case 'date':
                     case 'date-time':
                         let dateN: Date | string | number;
                         let min: number;
                         let max: number;
 
+                        // Valida si es un unix de segundos
                         if (typeof toValidate.value === 'number' && toValidate.value.toString().length === 10) {
                             dateN = toValidate.value;
+                        // Valida si se envio una fecha en formato Date o string
                         } else if (toValidate.value instanceof Date || typeof toValidate.value === 'string') {
-                            dateN = convertToUnix(toValidate.value);
-                        } else {
-                            throw new Error("Formato de fecha inválido");
-                        }
+                            const convertedUnix = convertToUnix(toValidate.value);
 
-                        if (toValidate.min && toValidate.min instanceof Date) {
-                            min = convertToUnix(toValidate.min);
-                        } else {
-                            throw new Error("La propiedad 'min' tiene un formato de fecha inválido o no existe");
-                        }
+                            if (isNaN(convertedUnix) || convertedUnix === 0) {
+                                flag = false;
+                                toValidate.setError?.(messageError(toValidate.nameInput, 'no es una fecha válida'));
+                                return;
+                            }
 
-                        if (toValidate.max && toValidate.max instanceof Date) {
-                            max = convertToUnix(toValidate.max);
+                            dateN = convertedUnix;
+                        // si ninguna se cumpole lo detecta como error
                         } else {
-                            throw new Error("La propiedad 'max' tiene un formato de fecha inválido o no existe");
-                        }
-
-                        if (dateN < min) {
                             flag = false;
-                            toValidate.setError?.(messageError(toValidate.nameInput, 'la fecha no puede ser menor que ' + unixToDateTime(min)));
+                            toValidate.setError?.(messageError(toValidate.nameInput, 'tiene un formato de fecha inválido'));
                             return;
                         }
 
-                        if (dateN > max) {
-                            flag = false;
-                            toValidate.setError?.(messageError(toValidate.nameInput, 'la fecha no puede ser mayor que ' + unixToDateTime(max)));
-                            return;
+                        if (toValidate.min) { 
+                            if (toValidate.min instanceof Date) {
+                                min = convertToUnix(toValidate.min);
+
+                                if (dateN < min) {
+                                    flag = false;
+                                    toValidate.setError?.(messageError(toValidate.nameInput, 'no puede ser menor que ' + unixToDateTime(min)));
+                                    return;
+                                }
+                            } else {
+                                flag = false;
+                                toValidate.setError?.(messageError(toValidate.nameInput, "tiene un 'min' inválido"));
+                                return;
+                            }
                         }
 
+                        if (toValidate.max) { 
+                            if(toValidate.max instanceof Date) {
+                                max = convertToUnix(toValidate.max);
+                                
+                                if (dateN > max) {
+                                    flag = false;
+                                    toValidate.setError?.(messageError(toValidate.nameInput, 'no puede ser mayor que ' + unixToDateTime(max)));
+                                    return;
+                                }
+                            } else {
+                                flag = false;
+                                toValidate.setError?.(messageError(toValidate.nameInput, "tiene un 'max' inválido"));
+                                return;
+                            }
+                        }
                         break;
 
-                    // --- GRUPO 5: DATOS GENÉRICOS ---
+                    // --- GRUPO 9: DATOS GENÉRICOS ---
                     case 'time':
                     case 'data':
                         return;
 
                     default:
-                        console.warn("Tipo de validacion no reconocida");
-                        break;
+                        throw new Error("Tipo de validación no reconocida");
                 }
             });
 
