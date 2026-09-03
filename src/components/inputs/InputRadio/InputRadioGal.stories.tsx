@@ -14,7 +14,7 @@ const meta = {
   },
   // Aquí puedes definir controles manuales si Storybook no los detecta
   argTypes: {
-    
+    value : {control: "text"}
   },
 } satisfies Meta<typeof InputRadioGal>;
 
@@ -37,7 +37,8 @@ export const Default: Story = {
     ],
     setValue: (e: any) => {alert(e)},
     errorMessage: "Los campos son obligatorios",
-    HorV: 'vertical'
+    HorV: 'vertical',
+    value : null,
   },
 };
 
@@ -52,7 +53,8 @@ export const WithIcons: Story = {
     ],
     setValue: (e: any) => {alert(e)},
     errorMessage: 'Este campo es obligatorio',
-    HorV: 'horizontal'
+    HorV: 'horizontal',
+    value : null,
   },
   argTypes: {
   }

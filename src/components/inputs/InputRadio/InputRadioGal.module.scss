@@ -48,6 +48,9 @@
                     font-size: 1.4em;
                     font-family: OpenSansSemiBold;
                     cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
                 }
 
                 .inputElement {
