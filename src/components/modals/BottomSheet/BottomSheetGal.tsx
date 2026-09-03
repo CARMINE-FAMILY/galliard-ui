@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { useEffect, useRef, useState } from 'react';
-import { BottomSheetModel } from "@/models/Modals/BottomSheetModel";
+import type { BottomSheetModel } from "@/models/Modals/BottomSheetModel";
 import styles from './BottomSheetGal.module.scss';
 
 export function BottomSheetGal({

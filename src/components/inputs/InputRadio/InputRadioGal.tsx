@@ -30,7 +30,9 @@ export const InputRadioGal = forwardRef<HTMLInputElement, RadioProps>(function I
         customLabelClass,
         customTextClass,
         customIconLabelClass,
-        customContainerRadiosClass
+        customContainerRadiosClass,
+
+        args
     },
     ref
 ) {
@@ -89,19 +91,8 @@ export const InputRadioGal = forwardRef<HTMLInputElement, RadioProps>(function I
                                     name={name}
                                     value={option.value}
                                     onChange={(e) => setValue(e.target.value)}
+                                    {...args}
                                 />
-
-                                {!option.customIcon ? option.seeIcon &&
-                                    <Icon
-                                        icon={option.icon ?? "mi:user"}
-                                        className={`${styles.icon} ${option.customIconClass}`}
-                                        style={{ color: option.iconColor, fontSize: iconSize }}
-                                    />
-                                    :
-                                    <div className={`${styles.containerCustomIcon} ${option.customIconClass}`}>
-                                        {option.customIcon}
-                                    </div>
-                                }
 
                                 <label
                                     htmlFor={uniqueId}
@@ -112,6 +103,17 @@ export const InputRadioGal = forwardRef<HTMLInputElement, RadioProps>(function I
                                         fontFamily: font
                                     }}
                                 >
+                                    {!option.customIcon ? option.seeIcon &&
+                                        <Icon
+                                            icon={option.icon ?? "mi:user"}
+                                            className={`${styles.icon} ${option.customIconClass}`}
+                                            style={{ color: option.iconColor, fontSize: iconSize }}
+                                        />
+                                        :
+                                        <div className={`${styles.containerCustomIcon} ${option.customIconClass}`}>
+                                            {option.customIcon}
+                                        </div>
+                                    }
                                     {option.label}
                                 </label>
                             </div>

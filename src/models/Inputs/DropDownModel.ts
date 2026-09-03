@@ -1,3 +1,5 @@
+import type { HTMLAttributes } from "react"; // [MOD] Se agregó para soporte de `args`.
+
 export interface OptionsDropModel {
     valueOption: number | string | null;
     text: string;
@@ -6,6 +8,7 @@ export interface OptionsDropModel {
     customIcon?: React.ReactNode;
 }
 
+// [MOD] Se agregó `args` para propagar atributos nativos del input.
 export interface DropDownProps {
     label?: string;
     value: OptionsDropModel | null;
@@ -43,4 +46,5 @@ export interface DropDownProps {
     customLabelClass?: string;
     customIconClass?: string;
     customOptionClass?: string;
+    args?: HTMLAttributes<HTMLDivElement>; // [MOD] Se agregó para propagar atributos nativos en el div contenedor (hace de input del dropdown).
 }

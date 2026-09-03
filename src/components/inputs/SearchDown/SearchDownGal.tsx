@@ -37,14 +37,19 @@ export const SearchDownGal = forwardRef<HTMLInputElement, SearchDownProps>(funct
         iconSize = 20,
         iconsOptionsSize = 20,
         seeIcon = false,
+        seeInputIcon = true,
         iconsColor = '#000',
         customIcon,
+        customInputIcon,
 
         customContainerClass,
         customInputClass,
         customLabelClass,
         customIconClass,
-        customOptionClass
+        customOptionClass,
+        customInputContainerClass,
+
+        args
     },
     ref
 ) {
@@ -144,7 +149,7 @@ export const SearchDownGal = forwardRef<HTMLInputElement, SearchDownProps>(funct
             <div className={styles.containerInputError}>
                 <div ref={divRef} className={styles.containerInputAndOptions}>
                     <div
-                        className={`${styles.containerInput} ${customInputClass}`}
+                        className={`${styles.containerInput} ${customInputContainerClass}`}
                         style={{
                             width: width,
                             height: height,
@@ -154,15 +159,24 @@ export const SearchDownGal = forwardRef<HTMLInputElement, SearchDownProps>(funct
                             backgroundColor: bgColor
                         }}
                     >
-                        <Icon
-                            icon={'icon-park-solid:search'}
-                            className={styles.icon}
-                            style={{ color: iconsColor, fontSize: iconsOptionsSize }}
-                        />
+                        {!customInputIcon ? seeInputIcon && (
+                            <Icon
+                                icon={'icon-park-solid:search'}
+                                className={styles.icon}
+                                style={{ color: iconsColor, fontSize: iconsOptionsSize }}
+                            />
+                        ) : (
+                            <div
+                                className={styles.containerCustomIcon}
+                                style={{ color: iconsColor, fontSize: iconsOptionsSize }}
+                            >
+                                {customInputIcon}
+                            </div>
+                        )}
 
                         <input
                             type="text"
-                            className={styles.inputElement}
+                            className={`${styles.inputElement} ${customInputClass}`} //clase personalizada 
                             value={internalSearch}
                             placeholder={value?.text ? value.text : defaultValue.text}
                             onClick={(e: React.MouseEvent<HTMLInputElement>): void => {
@@ -187,6 +201,7 @@ export const SearchDownGal = forwardRef<HTMLInputElement, SearchDownProps>(funct
                                 fontWeight: value?.valueOption ? 'bold' : '',
                                 fontFamily: font
                             }}
+                            {...args}
                         />
                     </div>
 
