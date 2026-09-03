@@ -13,6 +13,7 @@ export const SearchDownGal = forwardRef<HTMLInputElement, SearchDownProps>(funct
         setValue,
         searchAction,
         useForApi = false,
+        allowVoidOption = false,
         options = [],
         placeholder,
         errorMessage,
@@ -69,7 +70,7 @@ export const SearchDownGal = forwardRef<HTMLInputElement, SearchDownProps>(funct
     }
 
     const searchCustomList = async (e: string): Promise<void> => {
-        if(searchAction !== undefined ){
+        if (searchAction !== undefined) {
             try {
                 const res = await searchAction(e);
                 setInternalOptions(res);
@@ -77,7 +78,7 @@ export const SearchDownGal = forwardRef<HTMLInputElement, SearchDownProps>(funct
                 console.error("Error al buscar las opciones:", error);
                 setInternalOptions([]);
             }
-        } 
+        }
         setSeeOpt(true);
     }
 
@@ -96,11 +97,17 @@ export const SearchDownGal = forwardRef<HTMLInputElement, SearchDownProps>(funct
             if (internalSearch !== '') {
                 debouncedSearch();
                 setSeeOpt(true);
-            }else{
+            } else {
                 setSeeOpt(false);
             }
         }
     }, [internalSearch]);
+
+    useEffect(() => {
+        if (value?.text !== undefined && value?.text !== internalSearch) {
+            setInternalSearch(value?.text)
+        }
+    }, [value]);
 
     const getRounded: number = useMemo(() => {
         return getRoundedValue(rounded ?? "lg");
@@ -216,6 +223,28 @@ export const SearchDownGal = forwardRef<HTMLInputElement, SearchDownProps>(funct
                                 right: orientation === 'left' ? 'calc(100% + 10px)' : ''
                             }}
                         >
+                            {allowVoidOption && 
+                                <div
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        setSeeOpt(false);
+                                        setValue(null);
+                                        setInternalSearch('');
+                                    }}
+                                    className={`${styles.optionElement} ${customOptionClass}`}
+                                >
+                                    <p
+                                        className={styles.textOption}
+                                        style={{
+                                            fontSize: textSize,
+                                            color: textColor,
+                                            fontFamily: font
+                                        }}
+                                    >
+                                        {defaultValue.text}
+                                    </p>
+                                </div>
+                            }
                             {internalOptions?.map((option, key) =>
 
                                 <div

@@ -13,6 +13,7 @@ export interface SearchDownProps {
     value: string | null,
   ) => OptionsSearchModel[] | Promise<OptionsSearchModel[]>;
   useForApi: boolean;
+  allowVoidOption?: boolean;
   options: OptionsSearchModel[];
   placeholder?: string;
   errorMessage?: string;

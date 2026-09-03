@@ -16,10 +16,73 @@ const meta = {
   },
   // Aquí puedes definir controles manuales si Storybook no los detecta
   argTypes: {
+    // 🔘 BOOLEANOS (Garantizamos que aparezca el Switch)
+    useForApi: { control: 'boolean' },
+    allowVoidOption: { control: 'boolean' },
+    iconInRight: { control: 'boolean' },
+    border: { control: 'boolean' },
+    shadow: { control: 'boolean' },
+    seeIcon: { control: 'boolean' },
+    seeInputIcon: { control: 'boolean' },
+
+    // 🔽 SELECTORES / UNIONES (Forzamos las opciones para que despliegue el menú)
+    orientation: {
+      control: 'select',
+      options: ['top', 'left', 'right', 'bottom'],
+    },
+    font: {
+      control: 'select',
+      options: ['OpenSansLight', 'OpenSansRegular', 'OpenSansSemiBold', 'OpenSansBold', 'OpenSansBolder'],
+    },
+    fontLabel: {
+      control: 'select',
+      options: ['OpenSansLight', 'OpenSansRegular', 'OpenSansSemiBold', 'OpenSansBold', 'OpenSansBolder'],
+    },
+    rounded: {
+      control: 'select',
+      options: ['none', 'sm', 'md', 'lg', 'full'],
+    },
+    HorV: {
+      control: 'radio', // Radio es mejor para solo 2 opciones
+      options: ['horizontal', 'vertical'],
+    },
+
+    // 📝 TEXTOS SIMPLES
+    label: { control: 'text' },
+    placeholder: { control: 'text' },
+    errorMessage: { control: 'text' },
+    icon: { control: 'text' },
+    iconInput: { control: 'text' },
+
+    // 💅 CLASES CSS OPCIONALES
+    customContainerClass: { control: 'text' },
+    customInputClass: { control: 'text' },
+    customLabelClass: { control: 'text' },
+    customIconClass: { control: 'text' },
+    customOptionClass: { control: 'text' },
+    customInputContainerClass: { control: 'text' },
+
+    // 🎨 COLORES (Color Picker)
     bgColor: { control: 'color' },
     textColor: { control: 'color' },
     iconsColor: { control: 'color' },
-    useForApi: { control: 'boolean' }
+    labelColor: { control: 'color' },
+
+    // 📏 DIMENSIONES (number | string -> Forzado a texto para evitar error de tipos en UI)
+    textSize: { control: 'text' },
+    labelSize: { control: 'text' },
+    width: { control: 'text' },
+    height: { control: 'text' },
+    iconSize: { control: 'text' },
+    iconsOptionsSize: { control: 'text' },
+
+    // 🚫 DESHABILITADOS (Propiedades inyectadas por React, funciones o estados que rompen Storybook)
+    value: { control: false },
+    setValue: { control: false },
+    searchAction: { control: false },
+    customIcon: { control: false },
+    customInputIcon: { control: false },
+    args: { control: false },
   },
 } satisfies Meta<typeof SearchDownGal>;
 
