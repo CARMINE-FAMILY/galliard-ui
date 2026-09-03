@@ -34,6 +34,7 @@ export const SearchDownGal = forwardRef<HTMLInputElement, SearchDownProps>(funct
         HorV = "vertical",
 
         icon,
+        iconInput,
         iconSize = 20,
         iconsOptionsSize = 20,
         seeIcon = false,
@@ -161,7 +162,7 @@ export const SearchDownGal = forwardRef<HTMLInputElement, SearchDownProps>(funct
                     >
                         {!customInputIcon ? seeInputIcon && (
                             <Icon
-                                icon={'icon-park-solid:search'}
+                                icon={iconInput ?? 'icon-park-solid:search'}
                                 className={styles.icon}
                                 style={{ color: iconsColor, fontSize: iconsOptionsSize }}
                             />

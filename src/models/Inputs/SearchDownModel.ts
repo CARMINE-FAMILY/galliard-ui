@@ -44,6 +44,7 @@ export interface SearchDownProps {
   HorV?: "horizontal" | "vertical";
 
   icon?: string;
+  iconInput?: string;
   iconSize?: string | number;
   iconsOptionsSize?: string | number;
   seeIcon?: boolean;
