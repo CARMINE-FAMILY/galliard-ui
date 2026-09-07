@@ -61,5 +61,6 @@ export interface SearchDownProps {
   customOptionClass?: string;
   customInputContainerClass?: string;
   
+  /** Atributos nativos adicionales propagados al `<input>` interno. */
   args?: InputHTMLAttributes<HTMLInputElement>;
 }
