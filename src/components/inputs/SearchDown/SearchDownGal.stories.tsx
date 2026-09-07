@@ -19,7 +19,11 @@ const meta = {
     bgColor: { control: 'color' },
     textColor: { control: 'color' },
     iconsColor: { control: 'color' },
-    useForApi: { control: 'boolean' }
+    useForApi: { control: 'boolean' },
+    iconInput: { control: 'text', description: "Nombre del icono Iconify dentro del input (por defecto 'icon-park-solid:search')." },
+    customIcon: { control: 'object', description: 'Nodo personalizado para el icono de la etiqueta.' },
+    customInputIcon: { control: 'object', description: 'Nodo personalizado para el icono dentro del input.' },
+    args: { control: 'object', description: 'Atributos nativos propagados al `<input>` interno.' },
   },
 } satisfies Meta<typeof SearchDownGal>;
 
