@@ -55,16 +55,16 @@ interface DateValidation extends BaseProps {
     typeInput: 'date' | 'date-time';
     value: Date | string | number | null | undefined; 
     
-    min?: Date;
-    max?: Date;
+    min?: Date | string;
+    max?: Date | string;
 }
 
 interface TimeValidation extends BaseProps {
     typeInput: 'time';
-    value: Date | string | number | null | undefined; 
+    value: string | null | undefined; 
     
-    min?: Date;
-    max?: Date;
+    min?: string;
+    max?: string;
 }
 
 interface DataValidation extends BaseProps {

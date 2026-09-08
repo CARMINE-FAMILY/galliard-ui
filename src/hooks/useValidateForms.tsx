@@ -1,8 +1,8 @@
 import { useCallback } from "react";
 import type { ValidateProps } from "../models/Hooks/ValidateModel";
-import { convertToUnix, unixToDateTime } from "../funtions/UnixActions";
+import { convertToUnix, unixToDate, unixToDateTime } from "../funtions/UnixActions";
 
-export function useValidateForms(): {ApplyValidate: (validations: ValidateProps[]) => boolean} {
+export function useValidateForms(): { ApplyValidate: (validations: ValidateProps[]) => boolean } {
     //#region Funcionmes generales
 
     const messageError = useCallback((
@@ -218,7 +218,20 @@ export function useValidateForms(): {ApplyValidate: (validations: ValidateProps[
     }, [messageError]);
 
     //#endregion
-    
+
+    //#region Validaciones de tipo fechas y tiempo
+
+    // Helper reutilizable que recorta la fecha a "YYYY-MM-DD" si es exclusiva de 'date'
+    const getSafeUnixDate = useCallback((val: Date | string, isOnlyDate: boolean): number => {
+        let safeVal = val;
+        if (isOnlyDate && typeof safeVal === 'string' && safeVal.includes('T')) {
+            safeVal = safeVal.split(/T| /)[0];
+        }
+        return convertToUnix(safeVal);
+    }, []);
+
+    //#endregion
+
     const ApplyValidate = (validations: ValidateProps[]): boolean => {
         let flag: boolean = true;
 
@@ -232,7 +245,7 @@ export function useValidateForms(): {ApplyValidate: (validations: ValidateProps[
                     toValidate.nameInput,
                     toValidate.setError
                 )) {
-                    flag = false; 
+                    flag = false;
                     return;
                 }
 
@@ -425,41 +438,40 @@ export function useValidateForms(): {ApplyValidate: (validations: ValidateProps[
                         }
                         break;
 
-                    // --- GRUPO 8: FECHAS Y TIEMPO ---
+                    // --- GRUPO 8 y 9: FECHAS Y DATETIME FUSIONADOS ---
                     case 'date':
-                    case 'date-time':
-                        let dateN: Date | string | number;
-                        let min: number;
-                        let max: number;
+                    case 'date-time': {
+                        let dateN: number;
+                        
+                        // Determinamos el tipo para formatear mensajes y recortar la fecha
+                        const isOnlyDate = toValidate.typeInput === 'date';
+                        const formatFn = isOnlyDate ? unixToDate : unixToDateTime;
 
-                        // Valida si es un unix de segundos
                         if (typeof toValidate.value === 'number' && toValidate.value.toString().length === 10) {
                             dateN = toValidate.value;
-                        // Valida si se envio una fecha en formato Date o string
                         } else if (toValidate.value instanceof Date || typeof toValidate.value === 'string') {
-                            const convertedUnix = convertToUnix(toValidate.value);
+                            // Se utiliza el helper reutilizable para convertir
+                            const convertedUnix = getSafeUnixDate(toValidate.value, isOnlyDate);
 
                             if (isNaN(convertedUnix) || convertedUnix === 0) {
                                 flag = false;
                                 toValidate.setError?.(messageError(toValidate.nameInput, 'no es una fecha válida'));
                                 return;
                             }
-
                             dateN = convertedUnix;
-                        // si ninguna se cumpole lo detecta como error
                         } else {
                             flag = false;
                             toValidate.setError?.(messageError(toValidate.nameInput, 'tiene un formato de fecha inválido'));
                             return;
                         }
 
-                        if (toValidate.min) { 
-                            if (toValidate.min instanceof Date) {
-                                min = convertToUnix(toValidate.min);
+                        if (toValidate.min) {
+                            if (toValidate.min instanceof Date || typeof toValidate.min === 'string') {
+                                const min = getSafeUnixDate(toValidate.min, isOnlyDate);
 
                                 if (dateN < min) {
                                     flag = false;
-                                    toValidate.setError?.(messageError(toValidate.nameInput, 'no puede ser menor que ' + unixToDateTime(min)));
+                                    toValidate.setError?.(messageError(toValidate.nameInput, 'no puede ser menor que ' + formatFn(min)));
                                     return;
                                 }
                             } else {
@@ -469,13 +481,13 @@ export function useValidateForms(): {ApplyValidate: (validations: ValidateProps[
                             }
                         }
 
-                        if (toValidate.max) { 
-                            if(toValidate.max instanceof Date) {
-                                max = convertToUnix(toValidate.max);
-                                
+                        if (toValidate.max) {
+                            if (toValidate.max instanceof Date || typeof toValidate.max === 'string') {
+                                const max = getSafeUnixDate(toValidate.max, isOnlyDate);
+
                                 if (dateN > max) {
                                     flag = false;
-                                    toValidate.setError?.(messageError(toValidate.nameInput, 'no puede ser mayor que ' + unixToDateTime(max)));
+                                    toValidate.setError?.(messageError(toValidate.nameInput, 'no puede ser mayor que ' + formatFn(max)));
                                     return;
                                 }
                             } else {
@@ -485,9 +497,80 @@ export function useValidateForms(): {ApplyValidate: (validations: ValidateProps[
                             }
                         }
                         break;
+                    }
 
-                    // --- GRUPO 9: DATOS GENÉRICOS ---
-                    case 'time':
+                    // --- GRUPO 10: TIEMPO ---
+                    case 'time': {
+
+                        // 1. Helper interno: Convierte cualquier formato a "minutos desde medianoche"
+                        const getMinutes = (t: Date | string | number | null | undefined): number => {
+                            if (t === null || t === undefined) return -1;
+                            if (typeof t === 'number') return t; // Si ya envías minutos crudos
+                            if (t instanceof Date) return t.getHours() * 60 + t.getMinutes();
+                            
+                            if (typeof t === 'string') {
+                                // Soporta strings de inputs tipo time como "14:30" o "14:30:00"
+                                const parts = t.split(':');
+                                if (parts.length >= 2) {
+                                    return parseInt(parts[0], 10) * 60 + parseInt(parts[1], 10);
+                                }
+                            }
+                            return -1; // Formato inválido
+                        };
+
+                        // Helper interno: Regresa los minutos a texto legible (ej. "14:30")
+                        const formatTime = (m: number): string => {
+                            const hours = Math.floor(m / 60).toString().padStart(2, '0');
+                            const mins = (m % 60).toString().padStart(2, '0');
+                            return `${hours}:${mins}`;
+                        };
+
+                        // Convertimos el valor principal a minutos
+                        const timeN = getMinutes(toValidate.value);
+
+                        if (timeN === -1 || isNaN(timeN)) {
+                            flag = false;
+                            toValidate.setError?.(messageError(toValidate.nameInput, 'no es una hora válida'));
+                            return;
+                        }
+
+                        // Validación de MIN
+                        if (toValidate.min) {
+                            const minMinutes = getMinutes(toValidate.min);
+                            if (minMinutes !== -1 && !isNaN(minMinutes)) {
+
+                                if (timeN < minMinutes) {
+                                    flag = false;
+                                    toValidate.setError?.(messageError(toValidate.nameInput, 'no puede ser menor a las ' + formatTime(minMinutes)));
+                                    return;
+                                }
+                            } else {
+                                flag = false;
+                                toValidate.setError?.(messageError(toValidate.nameInput, "tiene un 'min' de hora inválido"));
+                                return;
+                            }
+                        }
+
+                        // Validación de MAX
+                        if (toValidate.max) {
+                            const maxMinutes = getMinutes(toValidate.max);
+                            if (maxMinutes !== -1 && !isNaN(maxMinutes)) {
+
+                                if (timeN > maxMinutes) {
+                                    flag = false;
+                                    toValidate.setError?.(messageError(toValidate.nameInput, 'no puede ser mayor a las ' + formatTime(maxMinutes)));
+                                    return;
+                                }
+                            } else {
+                                flag = false;
+                                toValidate.setError?.(messageError(toValidate.nameInput, "tiene un 'max' de hora inválido"));
+                                return;
+                            }
+                        }
+                        break;
+                    }
+
+                    // --- GRUPO 11: DATOS GENÉRICOS ---
                     case 'data':
                         return;
 
