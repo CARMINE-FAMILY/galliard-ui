@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import type { ValidateProps } from "../models/Hooks/ValidateModel";
-import { convertToUnix, unixToDate, unixToDateTime } from "../funtions/UnixActions";
+import { convertToUnix, SupportedTimeZone, unixToDate, unixToDateTime } from "../funtions/UnixActions";
 
 export function useValidateForms(): { ApplyValidate: (validations: ValidateProps[]) => boolean } {
     //#region Funcionmes generales
@@ -442,6 +442,7 @@ export function useValidateForms(): { ApplyValidate: (validations: ValidateProps
                     case 'date':
                     case 'date-time': {
                         let dateN: number;
+                        let tz: SupportedTimeZone = toValidate.timeZone ?? "UTC"; // time zone por defecto en utc para que no modifique lo que se le paso
                         
                         // Determinamos el tipo para formatear mensajes y recortar la fecha
                         const isOnlyDate = toValidate.typeInput === 'date';
@@ -471,7 +472,7 @@ export function useValidateForms(): { ApplyValidate: (validations: ValidateProps
 
                                 if (dateN < min) {
                                     flag = false;
-                                    toValidate.setError?.(messageError(toValidate.nameInput, 'no puede ser menor que ' + formatFn(min)));
+                                    toValidate.setError?.(messageError(toValidate.nameInput, 'no puede ser menor que ' + formatFn(min, tz)));
                                     return;
                                 }
                             } else {
@@ -487,7 +488,7 @@ export function useValidateForms(): { ApplyValidate: (validations: ValidateProps
 
                                 if (dateN > max) {
                                     flag = false;
-                                    toValidate.setError?.(messageError(toValidate.nameInput, 'no puede ser mayor que ' + formatFn(max)));
+                                    toValidate.setError?.(messageError(toValidate.nameInput, 'no puede ser mayor que ' + formatFn(max, tz)));
                                     return;
                                 }
                             } else {

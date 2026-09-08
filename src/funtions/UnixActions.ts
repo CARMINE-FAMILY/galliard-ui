@@ -14,7 +14,7 @@ const TIMEZONES = [
     'UTC'
 ] as const;
 
-type SupportedTimeZone = typeof TIMEZONES[number];
+export type SupportedTimeZone = typeof TIMEZONES[number];
 
 const DEFAULT_TIMEZONE: SupportedTimeZone = 'America/Mexico_City';
 

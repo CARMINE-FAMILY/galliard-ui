@@ -1,3 +1,5 @@
+import { SupportedTimeZone } from "@/actions";
+
 interface BaseProps {
     setError?: (error: string) => void;
     nameInput?: string;
@@ -57,6 +59,7 @@ interface DateValidation extends BaseProps {
     
     min?: Date | string;
     max?: Date | string;
+    timeZone?: SupportedTimeZone
 }
 
 interface TimeValidation extends BaseProps {
