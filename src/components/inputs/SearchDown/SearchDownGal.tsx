@@ -107,6 +107,15 @@ export const SearchDownGal = forwardRef<HTMLInputElement, SearchDownProps>(funct
         if (value?.text !== undefined && value?.text !== internalSearch) {
             setInternalSearch(value?.text)
         }
+
+        // Si el valor es null o undefined, limpiamos el input visual
+        // if (!value || !value.text) {
+        //     setInternalSearch('');
+        // }
+        // // Si trae un texto y es diferente al actual, lo actualizamos
+        // else if (value.text !== internalSearch) {
+        //     setInternalSearch(value.text);
+        // }
     }, [value]);
 
     const getRounded: number = useMemo(() => {
@@ -223,7 +232,7 @@ export const SearchDownGal = forwardRef<HTMLInputElement, SearchDownProps>(funct
                                 right: orientation === 'left' ? 'calc(100% + 10px)' : ''
                             }}
                         >
-                            {allowVoidOption && 
+                            {allowVoidOption &&
                                 <div
                                     onClick={(e) => {
                                         e.stopPropagation();
